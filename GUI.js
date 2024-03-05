@@ -11,17 +11,5 @@ function kastTerning() {
 }
 
 function terningeBillederVis(slag) {
-  // Tilføjet parameter til funktionen
-  // Fikset syntaksfejl i nedenstående linje
   terningeBilleder.innerHTML = `<p><img src="img/terning${slag}.png" /></p>`; // Brugte template strings til at indsætte variabel
-}
-
-function terningeBillederVis() {
-  terningeBilleder.innerHTML =
-    innerHTML +
-    (
-      <p>
-        <img src="img/terning1.png" />
-      </p>
-    );
 }
