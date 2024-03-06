@@ -1,26 +1,13 @@
-let button = document.getElementById("kastTerninger");
+import { kastTerning } from "./Logic.js";
+
 let input = document.querySelector("input");
 let terningeBilleder = document.getElementsByClassName("terning");
+let button = document.getElementById("kastTerninger");
 
 button.onclick = function () {
-  kastTerning([true, true, true, true, true, true]);
-};
-
-function kastTerning(holdArray) {
-  console.log("Kast");
-  let slag = [];
-  let i = 0;
-
-  holdArray.forEach((element) => {
-    if (element == true) {
-      slag[i] = Math.floor(Math.random() * 6 + 1);
-    }
-    i++;
-  });
-
-  //input.value = slag;
+  let slag = kastTerning([true, true, true, true, true, true]);
   terningeBillederVis(slag, holdArray);
-}
+};
 
 function terningeBillederVis(slag, holdArray) {
   //terningeBilleder.innerHTML = `<p><img src="img/terning${slag}.png" /></p>`;
