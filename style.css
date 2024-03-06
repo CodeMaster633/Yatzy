@@ -1,75 +1,76 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f7f7f7;
-  padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    padding: 20px;
 }
 
 #TerningeSlagDiv {
-  text-align: center;
-  margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .terning {
-  cursor: pointer;
-  transition: transform 0.1s ease-in-out;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
 }
 
 .terning:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .TerningeBilleder {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 #kastTerninger {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 1rem;
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
 }
 
 #pointDiv {
-  display: grid;
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+    display: grid;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
-#pointDiv div, #pointDiv input[type="text"] {
-  margin: 5px 0;
+#pointDiv div,
+#pointDiv input[type="text"] {
+    margin: 5px 0;
 }
 
 #pointDiv div {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #pointDiv input[type="text"] {
-  padding: 5px;
-  width: 50px;
-  text-align: center;
+    padding: 5px;
+    width: 50px;
+    text-align: center;
 }
 
 #pointDiv div:first-child {
-  background-color: #eee;
-  font-weight: bold;
-  padding: 10px;
-  border-radius: 5px;
+    background-color: #eee;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 #pointDiv div:last-child {
-  margin-top: 10px;
+    margin-top: 10px;
 }
 
 .total-score-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-  font-weight: bold;
-  font-size: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
