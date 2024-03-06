@@ -1,6 +1,6 @@
 let nuværendeSlag = [1, 1, 1, 1, 1];
 
-function kastTerning(holdArray) {
+export function kastTerning(holdArray) {
   //let slag = [];
   let i = 0;
 

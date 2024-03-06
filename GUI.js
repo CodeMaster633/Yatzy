@@ -1,7 +1,6 @@
 import {
   kastTerning,
   onePairPoints,
-  terningeBillederVis,
   twoPairPoints,
   threeSamePoints,
   fourSamePoints,
@@ -19,6 +18,7 @@ let myHoldArray = [true, true, true, true, true];
 terningSetup();
 
 button.onclick = function () {
+  console.log("Kastet");
   let slag = kastTerning(myHoldArray);
   terningeBillederVis(slag, myHoldArray);
   terningSetup();
