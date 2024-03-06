@@ -1,4 +1,15 @@
-import { kastTerning } from "./Logic.js";
+import {
+  kastTerning,
+  onePairPoints,
+  terningeBillederVis,
+  twoPairPoints,
+  threeSamePoints,
+  fourSamePoints,
+  fullHousePoints,
+  smallStraightPoints,
+  chancePoints,
+  yatzyPoints,
+} from "./Logic.js";
 
 let input = document.querySelector("input");
 let terningeBilleder = document.getElementsByClassName("terning");
@@ -25,7 +36,7 @@ function terningeBillederVis(slag, holdArray) {
     height="100"
     class="terning"
     id="img${i + 1}"
-  />`;
+    />`;
     }
     i++;
   });
