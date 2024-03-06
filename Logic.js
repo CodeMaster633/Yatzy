@@ -1,15 +1,18 @@
+let nuværendeSlag = [1, 1, 1, 1, 1];
+
 function kastTerning(holdArray) {
-  let slag = [];
+  //let slag = [];
   let i = 0;
 
   holdArray.forEach((element) => {
     if (element == true) {
-      slag[i] = Math.floor(Math.random() * 6 + 1);
+      nuværendeSlag[i] = Math.floor(Math.random() * 6 + 1);
     }
     i++;
   });
 
-  return slag;
+  console.log(nuværendeSlag);
+  return nuværendeSlag;
 }
 
 export { kastTerning };

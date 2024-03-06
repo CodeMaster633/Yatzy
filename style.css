@@ -12,6 +12,7 @@ body {
 .terning {
   cursor: pointer;
   transition: transform 0.1s ease-in-out;
+  margin: 5px;
 }
 
 .terning:hover {
@@ -38,7 +39,8 @@ body {
   gap: 10px;
 }
 
-#pointDiv div, #pointDiv input[type="text"] {
+#pointDiv div,
+#pointDiv input[type="text"] {
   margin: 5px 0;
 }
 
