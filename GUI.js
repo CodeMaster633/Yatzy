@@ -11,7 +11,6 @@ button.onclick = function () {
 };
 
 function terningeBillederVis(slag, holdArray) {
-  //terningeBilleder.innerHTML = `<p><img src="img/terning${slag}.png" /></p>`;
   terningeBilleder.innerHTML = "";
   let i = 0;
 
@@ -27,7 +26,4 @@ function terningeBillederVis(slag, holdArray) {
     }
     i++;
   });
-
-  //  terningeBilleder.innerHTML =
-  //  '<img src="img/terning2.png" width="100" height="100" /> <img src="img/terning1.png" width="100" height="100" /> <img src="img/terning1.png" width="100" height="100" /> <img src="img/terning1.png" width="100" height="100" /><img src="img/terning1.png" width="100" height="100" /><img src="img/terning1.png" width="100" height="100" />'
 }
