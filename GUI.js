@@ -3,10 +3,11 @@ import { kastTerning } from "./Logic.js";
 let input = document.querySelector("input");
 let terningeBilleder = document.getElementsByClassName("terning");
 let button = document.getElementById("kastTerninger");
+let myHoldArray = [true, true, true, true, true];
 
 button.onclick = function () {
-  let slag = kastTerning([true, true, true, true, true, true]);
-  terningeBillederVis(slag, holdArray);
+  let slag = kastTerning(myHoldArray);
+  terningeBillederVis(slag, myHoldArray);
 };
 
 function terningeBillederVis(slag, holdArray) {
