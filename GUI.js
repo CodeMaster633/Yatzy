@@ -13,6 +13,7 @@ import {
   fourSamePoints,
   fullHousePoints,
   smallStraightPoints,
+  largeStraightPoints,
   chancePoints,
   yatzyPoints,
   nuværendeSlag,
@@ -101,6 +102,33 @@ function opdaterPointfelter() {
         break;
       case "sixs":
         element.value = sixs(nuværendeSlag);
+        break;
+      case "onePair":
+        element.value = onePairPoints(nuværendeSlag);
+        break;
+      case "twoPair":
+        element.value = twoPairPoints(nuværendeSlag);
+        break;
+      case "threeOfAKind":
+        element.value = threeSamePoints(nuværendeSlag);
+        break;
+      case "fourOfAKind":
+        element.value = fourSamePoints(nuværendeSlag);
+        break;
+      case "fullHouse":
+        element.value = fullHousePoints(nuværendeSlag);
+        break;
+      case "smallStraight":
+        element.value = smallStraightPoints(nuværendeSlag);
+        break;
+      case "largeStraight":
+        element.value = largeStraightPoints(nuværendeSlag);
+        break;
+      case "chance":
+        element.value = chancePoints(nuværendeSlag);
+        break;
+        case "yatzy":
+        element.value = yatzyPoints(nuværendeSlag);
         break;
     }
   });

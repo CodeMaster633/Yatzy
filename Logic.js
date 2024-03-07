@@ -160,6 +160,26 @@ export function smallStraightPoints(dice) {
   }
 }
 
+//Skal ændres TODO
+export function largeStraightPoints(dice) {
+  const freq = frequency(dice);
+  let duplicates = 0;
+  let sum = 0;
+
+  for (let i = 0; i < freq.length; i++) {
+    if (freq[i] == 2) {
+      duplicates++;
+    }
+    sum = sum + freq[i] * i;
+  }
+
+  if (sum == 20 && duplicates < 2) {
+    return sum;
+  } else {
+    return 0;
+  }
+}
+
 export function chancePoints(dice) {
   let sum = 0;
 
@@ -178,6 +198,7 @@ export function yatzyPoints(dice) {
   for (let i = 0; i < dice.length; i++) {
     if (dice[i] != first) {
       yatzy = false;
+      break;
     } else {
       yatzy = true;
     }
