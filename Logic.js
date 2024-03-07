@@ -1,4 +1,4 @@
-let nuværendeSlag = [1, 1, 1, 1, 1];
+export let nuværendeSlag = [1, 1, 1, 1, 1];
 
 export function kastTerning(holdArray) {
   //let slag = [];
@@ -15,12 +15,48 @@ export function kastTerning(holdArray) {
   return nuværendeSlag;
 }
 
-function frequency(dice) {
+export function frequency(dice) {
   const freq = Array(7).fill(0);
   dice.forEach((value) => {
     freq[value]++;
   });
   return freq;
+}
+
+export function ones(dice) {
+  const freq = frequency(dice);
+  console.log(freq);
+  return freq[1] * 1;
+}
+
+export function twos(dice) {
+  const freq = frequency(dice);
+  console.log(freq);
+  return freq[2] * 2;
+}
+
+export function threes(dice) {
+  const freq = frequency(dice);
+  console.log(freq);
+  return freq[3] * 3;
+}
+
+export function fours(dice) {
+  const freq = frequency(dice);
+  console.log(freq);
+  return freq[4] * 4;
+}
+
+export function fives(dice) {
+  const freq = frequency(dice);
+  console.log(freq);
+  return freq[5] * 5;
+}
+
+export function sixs(dice) {
+  const freq = frequency(dice);
+  console.log(freq);
+  return freq[6] * 6;
 }
 
 export function onePairPoints(dice) {
