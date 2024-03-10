@@ -18,6 +18,7 @@ import {
   chancePoints,
   yatzyPoints,
   nuværendeSlag,
+  resetSlag,
 } from "./Logic.js";
 
 let terningeBilleder = document.getElementsByClassName("terning");
@@ -41,8 +42,7 @@ button.onclick = function () {
   opdaterPointfelter();
 
   slagNr++;
-  slagString.innerHTML = `Slag nr ${slagNr}`;
-  console.log(slagNr);
+  updateSlagString();
   stopVedTreSlag();
 };
 
@@ -84,56 +84,87 @@ function stopVedTreSlag() {
   }
 }
 
+function kastTilgængeligIgen() {
+  button.disabled = false;
+}
+
 function opdaterPointfelter() {
   Array.from(pointfelter).forEach((element) => {
     switch (element.id) {
       case "ones":
-        // TODO virker ikke
-        if (element.disabled != "disabled") {
+        if (element.disabled != true) {
           element.value = ones(nuværendeSlag);
         }
         break;
       case "twos":
-        element.value = twos(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = twos(nuværendeSlag);
+        }
         break;
       case "threes":
-        element.value = threes(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = threes(nuværendeSlag);
+        }
         break;
       case "fours":
-        element.value = fours(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = fours(nuværendeSlag);
+        }
         break;
       case "fives":
-        element.value = fives(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = fives(nuværendeSlag);
+        }
         break;
       case "sixs":
-        element.value = sixs(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = sixs(nuværendeSlag);
+        }
         break;
       case "onePair":
-        element.value = onePairPoints(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = onePairPoints(nuværendeSlag);
+        }
         break;
       case "twoPair":
-        element.value = twoPairPoints(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = twoPairPoints(nuværendeSlag);
+        }
         break;
       case "threeOfAKind":
-        element.value = threeSamePoints(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = threeSamePoints(nuværendeSlag);
+        }
         break;
       case "fourOfAKind":
-        element.value = fourSamePoints(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = fourSamePoints(nuværendeSlag);
+        }
         break;
       case "fullHouse":
-        element.value = fullHousePoints(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = fullHousePoints(nuværendeSlag);
+        }
         break;
       case "smallStraight":
-        element.value = smallStraightPoints(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = smallStraightPoints(nuværendeSlag);
+        }
         break;
       case "largeStraight":
-        element.value = largeStraightPoints(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = largeStraightPoints(nuværendeSlag);
+        }
         break;
       case "chance":
-        element.value = chancePoints(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = chancePoints(nuværendeSlag);
+        }
         break;
       case "yatzy":
-        element.value = yatzyPoints(nuværendeSlag);
+        if (element.disabled != true) {
+          element.value = yatzyPoints(nuværendeSlag);
+        }
         break;
     }
   });
@@ -153,16 +184,17 @@ function pointfelterSetup() {
 }
 
 function updateTotal() {
-  if (totalFelt.value == 0) {
-    totalFelt.value = getTotal();
-  } else {
-    totalFelt.value = 0;
-  }
+  totalFelt.value = getTotal();
 }
 
-// TODO virker ikke
+function updateSlagString() {
+  slagString.innerHTML = `Slag nr ${slagNr}`;
+}
+
 function resetTerninger() {
   myHoldArray = [true, true, true, true, true];
   slagNr = 0;
-  terningSetup();
+  updateSlagString();
+  terningeBillederVis(resetSlag(), myHoldArray);
+  kastTilgængeligIgen();
 }
