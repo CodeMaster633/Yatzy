@@ -1,101 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yatzy</title>
     <script src="GUI.js" type="module" defer></script>
     <script src="Logic.js" type="module" defer></script>
     <link rel="stylesheet" href="style.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="content-contatiner">
-      <div id="TerningeSlagDiv">
-        <div class="TerningeBilleder">
-          <img
-            src="img/terning1.png"
-            width="100"
-            height="100"
-            class="terning"
-            id="img1"
-          />
-          <img
-            src="img/terning1.png"
-            width="100"
-            height="100"
-            class="terning"
-            id="img2"
-          />
-          <img
-            src="img/terning1.png"
-            width="100"
-            height="100"
-            class="terning"
-            id="img3"
-          />
-          <img
-            src="img/terning1.png"
-            width="100"
-            height="100"
-            class="terning"
-            id="img4"
-          />
-          <img
-            src="img/terning1.png"
-            width="100"
-            height="100"
-            class="terning"
-            id="img5"
-          />
+        <div id="TerningeSlagDiv">
+            <div class="TerningeBilleder">
+                <img src="img/terning1.png" width="100" height="100" class="terning" id="img1" />
+                <img src="img/terning1.png" width="100" height="100" class="terning" id="img2" />
+                <img src="img/terning1.png" width="100" height="100" class="terning" id="img3" />
+                <img src="img/terning1.png" width="100" height="100" class="terning" id="img4" />
+                <img src="img/terning1.png" width="100" height="100" class="terning" id="img5" />
+            </div>
+            <p id="slagString">Slag nr 0</p>
+            <button id="kastTerninger">Kast</button>
+            <button id="nulstilSpil">Nulstil Spil</button>
         </div>
-        <p id="slagString">Slag nr 0</p>
-        <button id="kastTerninger">Kast</button>
-      </div>
-      <div id="pointDiv">
-        <div>1-s</div>
-        <input class="pointFelt" id="ones" type="text" />
-        <div>2-s</div>
-        <input class="pointFelt" id="twos" type="text" />
-        <div>3-s</div>
-        <input class="pointFelt" id="threes" type="text" />
-        <div>4-s</div>
-        <input class="pointFelt" id="fours" type="text" />
-        <div>5-s</div>
-        <input class="pointFelt" id="fives" type="text" />
-        <div>6-s</div>
-        <input class="pointFelt" id="sixs" type="text" />
+        <div id="pointDiv">
+            <div>1-s</div>
+            <input class="pointFelt" id="ones" type="text" />
+            <div>2-s</div>
+            <input class="pointFelt" id="twos" type="text" />
+            <div>3-s</div>
+            <input class="pointFelt" id="threes" type="text" />
+            <div>4-s</div>
+            <input class="pointFelt" id="fours" type="text" />
+            <div>5-s</div>
+            <input class="pointFelt" id="fives" type="text" />
+            <div>6-s</div>
+            <input class="pointFelt" id="sixs" type="text" />
 
-        <div>One pair</div>
-        <input class="pointFelt" id="onePair" type="text" />
-        <div>Two pairs</div>
-        <input class="pointFelt" id="twoPair" type="text" />
+            <div>One pair</div>
+            <input class="pointFelt" id="onePair" type="text" />
+            <div>Two pairs</div>
+            <input class="pointFelt" id="twoPair" type="text" />
 
-        <div>Three of a kind</div>
-        <input class="pointFelt" id="threeOfAKind" type="text" />
-        <div>Four of a kind</div>
-        <input class="pointFelt" id="fourOfAKind" type="text" />
-        <div>Full house</div>
-        <input class="pointFelt" id="fullHouse" type="text" />
-        <div>Small straight</div>
-        <input class="pointFelt" id="smallStraight" type="text" />
-        <div>Large straight</div>
-        <input class="pointFelt" id="largeStraight" type="text" />
-        <div>Chance</div>
-        <input class="pointFelt" id="chance" type="text" />
-        <div>Yatzy</div>
-        <input class="pointFelt" id="yatzy" type="text" />
+            <div>Three of a kind</div>
+            <input class="pointFelt" id="threeOfAKind" type="text" />
+            <div>Four of a kind</div>
+            <input class="pointFelt" id="fourOfAKind" type="text" />
+            <div>Full house</div>
+            <input class="pointFelt" id="fullHouse" type="text" />
+            <div>Small straight</div>
+            <input class="pointFelt" id="smallStraight" type="text" />
+            <div>Large straight</div>
+            <input class="pointFelt" id="largeStraight" type="text" />
+            <div>Chance</div>
+            <input class="pointFelt" id="chance" type="text" />
+            <div>Yatzy</div>
+            <input class="pointFelt" id="yatzy" type="text" />
 
-        <div class="total-score-container">
-          Sum: <input type="text" id="sum" />
+            <div class="total-score-container">
+                Sum: <input type="text" id="sum" />
+            </div>
+            <div class="total-score-container">
+                Bonus: <input type="text" id="bonus" />
+            </div>
+            <div class="total-score-container">
+                Total: <input type="text" id="total" />
+            </div>
         </div>
-        <div class="total-score-container">
-          Bonus: <input type="text" id="bonus" />
-        </div>
-        <div class="total-score-container">
-          Total: <input type="text" id="total" />
-        </div>
-      </div>
     </div>
-  </body>
+</body>
+
 </html>
