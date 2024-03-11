@@ -19,6 +19,9 @@ import {
   yatzyPoints,
   nuværendeSlag,
   resetSlag,
+  addToSum,
+  getSum,
+  getBonus,
 } from "./Logic.js";
 
 let terningeBilleder = document.getElementsByClassName("terning");
@@ -28,12 +31,16 @@ let pointfelter = document
   .getElementById("pointDiv")
   .getElementsByClassName("pointFelt");
 let totalFelt = document.getElementById("total");
+let sumFelt = document.getElementById("sum");
+let bonusFelt = document.getElementById("bonus");
 let myHoldArray = [true, true, true, true, true];
 let slagNr = 0;
 
 terningSetup();
 pointfelterSetup();
+updateSum();
 updateTotal();
+updateBonus();
 
 button.onclick = function () {
   let slag = kastTerning(myHoldArray);
@@ -174,10 +181,20 @@ function pointfelterSetup() {
   Array.from(pointfelter).forEach((element) => {
     element.onclick = function () {
       vælgInputFelt(parseInt(this.value));
+      if (
+        element.id == "ones" ||
+        element.id == "twos" ||
+        element.id == "threes" ||
+        element.id == "fours" ||
+        element.id == "fives" ||
+        element.id == "sixs"
+      ) {
+        addToSum(parseInt(this.value));
+      }
+      updateBonus();
       updateTotal();
+      updateSum();
       resetTerninger();
-
-      // TODO virker ikke
       element.disabled = "disabled";
     };
   });
@@ -185,6 +202,14 @@ function pointfelterSetup() {
 
 function updateTotal() {
   totalFelt.value = getTotal();
+}
+
+function updateSum() {
+  sumFelt.value = getSum();
+}
+
+function updateBonus() {
+  bonusFelt.value = getBonus();
 }
 
 function updateSlagString() {

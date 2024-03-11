@@ -1,5 +1,7 @@
 export let nuværendeSlag = [1, 1, 1, 1, 1];
 export let totalVærdi = 0;
+export let sum = 0;
+export let bonus = 0;
 
 export function kastTerning(holdArray) {
   let i = 0;
@@ -18,8 +20,24 @@ export function vælgInputFelt(værdi) {
   totalVærdi += værdi;
 }
 
+export function addToSum(værdi) {
+  sum += værdi;
+}
+
 export function getTotal() {
   return totalVærdi;
+}
+
+export function getSum() {
+  return sum;
+}
+
+export function getBonus() {
+  if (sum >= 63) {
+    bonus = 50;
+    totalVærdi += bonus;
+  }
+  return bonus;
 }
 
 export function resetSlag() {
