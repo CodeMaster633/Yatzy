@@ -141,7 +141,6 @@ export function threeSamePoints(dice) {
 
 export function fourSamePoints(dice) {
     const freq = frequency(dice);
-    let pairs = 0;
     let sum = 0;
     for (let i = 0; i < freq.length; i++) {
         if (freq[i] >= 4) {
