@@ -80,7 +80,7 @@ body {
 #pointDiv {
     display: grid;
     background: #fff;
-    padding: 20px;
+    padding: 10px;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     background: linear-gradient(to bottom,

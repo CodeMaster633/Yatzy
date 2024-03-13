@@ -36,6 +36,8 @@ let sumFelt = document.getElementById("sum");
 let bonusFelt = document.getElementById("bonus");
 let myHoldArray = [true, true, true, true, true];
 let slagNr = 0;
+let feltValgt = false;
+let tempElement = null;
 
 terningSetup();
 pointfelterSetup();
@@ -48,10 +50,15 @@ button.onclick = function () {
     terningeBillederVis(slag, myHoldArray);
     terningSetup();
     opdaterPointfelter();
-
     slagNr++;
-    updateSlagString();
     stopVedTreSlag();
+    updateSlagString();
+
+    updateBonus();
+    updateTotal();
+    updateSum();
+    håndterFelt();
+    checkFærdig();
 };
 
 function terningeBillederVis(slag, holdArray) {
@@ -97,6 +104,14 @@ function terningSetup() {
     //   });
 }
 
+function håndterFelt() {
+    if (feltValgt) {
+        resetTerninger();
+        feltValgtIgen(tempElement)
+        kastTilgængeligIgen();
+    }
+    feltValgt = false;
+}
 function stopVedTreSlag() {
     if (slagNr >= 3) {
         button.disabled = true;
@@ -192,26 +207,33 @@ function opdaterPointfelter() {
 function pointfelterSetup() {
     Array.from(pointfelter).forEach((element) => {
         element.onclick = function () {
-            vælgInputFelt(parseInt(this.value));
-            if (
-                element.id == "ones" ||
-                element.id == "twos" ||
-                element.id == "threes" ||
-                element.id == "fours" ||
-                element.id == "fives" ||
-                element.id == "sixs"
-            ) {
-                addToSum(parseInt(this.value));
-            }
-            updateBonus();
-            updateTotal();
-            updateSum();
-            resetTerninger();
-            element.disabled = "disabled";
-            checkFærdig();
 
+            kastTilgængeligIgen();
+            if (!feltValgt) {
+                element.disabled = true;
+                feltValgt = true;
+                tempElement = element;
+            } else {
+                tempElement.disabled = false;
+                element.disabled = true;
+                tempElement = element;
+            }
         };
     });
+}
+
+function feltValgtIgen(element) {
+    vælgInputFelt(parseInt(element.value));
+    if (
+        element.id == "ones" ||
+        element.id == "twos" ||
+        element.id == "threes" ||
+        element.id == "fours" ||
+        element.id == "fives" ||
+        element.id == "sixs"
+    ) {
+        addToSum(parseInt(element.value));
+    }
 }
 
 function updateTotal() {
