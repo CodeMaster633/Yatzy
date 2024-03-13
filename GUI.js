@@ -22,8 +22,7 @@ import {
     addToSum,
     getSum,
     getBonus,
-     //resetSpil - resetSpil fungerer ikke, metoderne er nederst i GUI, og i Logic klassen, 
-     // Tag gerne et kig.
+    resetSpil,
 } from "./Logic.js";
 
 let terningeBilleder = document.getElementsByClassName("terning");
@@ -56,20 +55,46 @@ button.onclick = function () {
 };
 
 function terningeBillederVis(slag, holdArray) {
-    slag.forEach((value, i) => {
-        let terningElement = terningeBilleder[i];
-        terningElement.src = `img/terning${value}.png`;
-        terningElement.style.opacity = holdArray[i] ? "1" : "0.5";
+    terningeBilleder.innerHTML = "";
+    let i = 0;
+
+    slag.forEach((element) => {
+        if (holdArray[i]) {
+            terningeBilleder[i].outerHTML = `<img
+      src="img/terning${element}.png"
+      width="100"
+      height="100"
+      class="terning"
+      id="img${i + 1}"
+      />`;
+        }
+        i++;
     });
+    //   slag.forEach((value, i) => {
+    //     let terningElement = terningeBilleder[i];
+    //     terningElement.src = `img/terning${value}.png`;
+    //     terningElement.style.opacity = holdArray[i] ? "1" : "0.5";
+    //   });
 }
 
 function terningSetup() {
-    Array.from(terningeBilleder).forEach((element, i) => {
-        element.addEventListener('click', () => {
-            myHoldArray[i] = !myHoldArray[i];
-            element.style.opacity = myHoldArray[i] ? "1" : "0.5";
-        });
+    Array.from(terningeBilleder).forEach((element) => {
+        element.onclick = function () {
+            if (myHoldArray[parseInt(element.id.charAt(3)) - 1]) {
+                element.style = "filter: opacity(50%);";
+                myHoldArray[parseInt(element.id.charAt(3)) - 1] = false;
+            } else {
+                element.style = "";
+                myHoldArray[parseInt(element.id.charAt(3)) - 1] = true;
+            }
+        };
     });
+    //   Array.from(terningeBilleder).forEach((element, i) => {
+    //     element.addEventListener("click", () => {
+    //       myHoldArray[i] = !myHoldArray[i];
+    //       element.style.opacity = myHoldArray[i] ? "1" : "0.5";
+    //     });
+    //   });
 }
 
 function stopVedTreSlag() {
@@ -183,6 +208,8 @@ function pointfelterSetup() {
             updateSum();
             resetTerninger();
             element.disabled = "disabled";
+            checkFærdig();
+
         };
     });
 }
@@ -214,17 +241,39 @@ function resetTerninger() {
 function resetUI() {
     resetTerninger();
 
-    Array.from(pointfelter).forEach(felt => {
-        felt.value = '';
+    Array.from(pointfelter).forEach((felt) => {
+        felt.value = 0;
         felt.disabled = false;
     });
 
-    totalFelt.value = '';
-    sumFelt.value = '';
-    bonusFelt.value = '';
+    totalFelt.value = 0;
+    sumFelt.value = 0;
+    bonusFelt.value = 0;
 }
 
-document.getElementById('nulstilSpil').addEventListener('click', function() {
+document.getElementById("nulstilSpil").addEventListener("click", function () {
     resetSpil();
     resetUI();
 });
+
+function checkFærdig() {
+    let done = true;
+    let nytspil = false;
+    Array.from(pointfelter).forEach((element) => {
+        if (!element.disabled) {
+            done = false;
+        }
+    })
+
+    if (done) {
+        if (confirm("Vil du starte et nyt spil?") == true) {
+            console.log("Nyt spil");
+            nytspil = true
+        }
+    }
+
+    if (nytspil) {
+        resetSpil();
+        resetUI();
+    }
+}
