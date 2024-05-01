@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    padding: 20px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.content-container {
+    width: 100%;
+    max-width: 980px;
+    margin: auto;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    background: white;
+    border-radius: 10px;
+}
+
+#TerningeSlagDiv {
+    text-align: center;
+}
+
+#kastTerninger {
+    border-radius: 12px;
+}
+
+.terning img {
+    border: 2px solid #007bff;
+    border-radius: 10px;
+}
+
+.pointFelt {
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: auto;
+}
+
+.terning {
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+    margin: 5px;
+}
+
+.terning:hover {
+    transform: scale(1.1);
+}
+
+.TerningeBilleder {
+    margin-bottom: 10px;
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px rgb(233, 233, 233) solid
+}
+
+#kastTerninger {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100px;
+    height: 50px;
+    font-size: large;
+}
+
+#kastTerninger:hover {
+    background-color: #0056b3;
+}
+
+#pointDiv {
+    display: grid;
+    background: #fff;
+    padding: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    background: linear-gradient(to bottom,
+            rgba(222, 239, 255, 1) 0%,
+            rgba(152, 190, 222, 1) 100%);
+}
+
+#pointDiv div,
+#pointDiv input[type="text"] {
+    margin: 5px 0;
+}
+
+#pointDiv div {
+    justify-content: center;
+    padding: 10px;
+}
+
+#pointDiv input[type="text"] {
+    padding: 5px;
+    width: 50px;
+    text-align: center;
+}
+
+
+#pointDiv div:last-child {
+    margin-top: 10px;
+}
+
+.total-score-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    background: linear-gradient(to bottom,
+            rgba(222, 239, 255, 1) 0%,
+            rgba(152, 190, 222, 1) 100%);
+    color: #000;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ccc;
+}
+
+.total-score-container input[type="text"] {
+    background: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    width: auto;
+    text-align: center;
+}
+
+#nulstilSpil{
+    margin-top: 100px;
+}
