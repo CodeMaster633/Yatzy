@@ -41,11 +41,11 @@ let tempElement = null;
 
 terningSetup();
 pointfelterSetup();
-updateSum();
-updateTotal();
-updateBonus();
+updateResultatfelter();
 
-button.onclick = function () {
+button.addEventListener('click', kastTerningKnap);
+
+function kastTerningKnap() {
     let slag = kastTerning(myHoldArray);
     terningeBillederVis(slag, myHoldArray);
     terningSetup();
@@ -54,12 +54,10 @@ button.onclick = function () {
     stopVedTreSlag();
     updateSlagString();
 
-    updateBonus();
-    updateTotal();
-    updateSum();
+    updateResultatfelter()
     håndterFelt();
     checkFærdig();
-};
+}
 
 function terningeBillederVis(slag, holdArray) {
     terningeBilleder.innerHTML = "";
@@ -77,11 +75,6 @@ function terningeBillederVis(slag, holdArray) {
         }
         i++;
     });
-    //   slag.forEach((value, i) => {
-    //     let terningElement = terningeBilleder[i];
-    //     terningElement.src = `img/terning${value}.png`;
-    //     terningElement.style.opacity = holdArray[i] ? "1" : "0.5";
-    //   });
 }
 
 function terningSetup() {
@@ -96,12 +89,6 @@ function terningSetup() {
             }
         };
     });
-    //   Array.from(terningeBilleder).forEach((element, i) => {
-    //     element.addEventListener("click", () => {
-    //       myHoldArray[i] = !myHoldArray[i];
-    //       element.style.opacity = myHoldArray[i] ? "1" : "0.5";
-    //     });
-    //   });
 }
 
 function håndterFelt() {
@@ -235,16 +222,9 @@ function feltValgtIgen(element) {
         addToSum(parseInt(element.value));
     }
 }
-
-function updateTotal() {
+function updateResultatfelter() {
     totalFelt.value = getTotal();
-}
-
-function updateSum() {
     sumFelt.value = getSum();
-}
-
-function updateBonus() {
     bonusFelt.value = getBonus();
 }
 
