@@ -1,4 +1,4 @@
-// import {
+ //import {
 //     kastTerning,
 //     vælgInputFelt,
 //     getTotal,
@@ -24,9 +24,14 @@
 //     getSum,
 //     getBonus,
 //     resetSpil,
-// } from "../Server/Logic.js";
+         //myHoldArray
+        // feltValgt,
+        // bonusFelt
+ //} from "../Server/Logic.js";
 
-import{get,post} from "./YatzyFetch.js"
+// import { kastTerning } from "../Server/Logic.js";
+// import { nuværendeSlag } from "../Server/Logic.js";
+import{get,post,put} from "./YatzyFetch.js"
 
 let terningeBilleder = document.getElementsByClassName("terning");
 let button = document.getElementById("kastTerninger");
@@ -37,33 +42,46 @@ let pointfelter = document
 let totalFelt = document.getElementById("total");
 let sumFelt = document.getElementById("sum");
 let bonusFelt = document.getElementById("bonus");
-let myHoldArray = [true, true, true, true, true];
-let feltValgt = false;
-let tempElement = null;
+//let myHoldArray = [true, true, true, true, true];
+//let feltValgt = false;
+//let tempElement = null; 
+ 
+ async function hentHoldArray(){
+    return await get("http://localhost:8000/holdArray")
+} 
 
-terningeBillederVis(await get("http://localhost:8000/slag",myHoldArray))
+ async function hentAktuelSlag(){
+    return await get("http://localhost:8000/slag")
+} 
 
+ async function kastAktuelSlag(){
+    return await put("http://localhost:8000/kastTerninger") 
+} 
+
+terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
 
 // terningSetup();
 // pointfelterSetup();
 // updateResultatfelter();
 
-// button.addEventListener('click', kastTerningKnap);
+ button.addEventListener('click', kastTerningKnap);
 
-// function kastTerningKnap() {
-//     let slag = kastTerning(myHoldArray);
-//     terningeBillederVis(slag, myHoldArray);
-//     terningSetup();
-//     opdaterPointfelter();
-//     stopVedTreSlag();
-//     updateSlagString();
+async function kastTerningKnap() {
+    console.log("kast terning")
+    kastAktuelSlag()
+    terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
+    // terningSetup();
+    // opdaterPointfelter();
+    // stopVedTreSlag();
+    // updateSlagString(); 
 
-//     updateResultatfelter()
-//     håndterFelt();
-//     checkFærdig();
-// }
+    // updateResultatfelter()
+    // håndterFelt();
+    // checkFærdig();
+}
 
 function terningeBillederVis(slag, holdArray) {
+    console.log(slag)
     terningeBilleder.innerHTML = "";
     let i = 0;
     holdArray = [true,true,true,true,true]
@@ -81,19 +99,19 @@ function terningeBillederVis(slag, holdArray) {
     });
 }
 
-// function terningSetup() {
-//     Array.from(terningeBilleder).forEach((element) => {
-//         element.onclick = function () {
-//             if (myHoldArray[parseInt(element.id.charAt(3)) - 1]) {
-//                 element.style = "filter: opacity(50%);";
-//                 myHoldArray[parseInt(element.id.charAt(3)) - 1] = false;
-//             } else {
-//                 element.style = "";
-//                 myHoldArray[parseInt(element.id.charAt(3)) - 1] = true;
-//             }
-//         };
-//     });
-// }
+function terningSetup() {
+    Array.from(terningeBilleder).forEach((element) => {
+        element.onclick = function () {
+            if (holdArray[parseInt(element.id.charAt(3)) - 1]) {
+                element.style = "filter: opacity(50%);";
+                holdArray[parseInt(element.id.charAt(3)) - 1] = false;
+            } else {
+                element.style = "";
+                holdArray[parseInt(element.id.charAt(3)) - 1] = true;
+            }
+        };
+    });
+}
 
 // function håndterFelt() {
 //     if (feltValgt) {

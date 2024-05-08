@@ -3,7 +3,7 @@ const app = express();
 import sessions from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { nuværendeSlag } from './Logic.js';
+import { nuværendeSlag, myHoldArray, kastTerning } from './Logic.js';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -24,21 +24,19 @@ app.use(express.json());
 //første bud, uden session
 //let tekster = [];
 
-app.post('/tilfoej', (request, response) => {
-    const { tekst } = request.body;
-    let tekster = request.session.tekster
-    if (tekster == undefined) {
-        tekster=[]
-    }
-    tekster.push(tekst)
-    request.session.tekster=tekster
-    response.status(201).send(['added']);
+app.put('/kastTerninger', (request, response) => {
+    console.log("server kast virker")
+    kastTerning()
+    response.status(201).send(['terningekast']);
 });
 
 
 app.get('/slag', (request, response) => {
-    console.log("Test af slag")
     response.send(nuværendeSlag)
+});
+
+app.get('/holdArray', (request, response) => {
+    response.send(myHoldArray)
 });
 
 app.listen(8000);

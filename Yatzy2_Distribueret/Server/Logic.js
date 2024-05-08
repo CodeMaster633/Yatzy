@@ -4,7 +4,8 @@ export let sum = 0;
 export let bonus = 0;
 export let slagNr = 0;
 export let myHoldArray = [true, true, true, true, true];
-
+export let feltValgt = false;
+export let tempElement = null;
 
 export function kastTerning() {
     let i = 0;
