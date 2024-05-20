@@ -3,7 +3,7 @@ const app = express();
 import sessions from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { nuværendeSlag, myHoldArray, kastTerning } from './Logic.js';
+import { nuværendeSlag, myHoldArray, kastTerning, ones, putOnes } from './Logic.js';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -37,6 +37,23 @@ app.get('/slag', (request, response) => {
 
 app.get('/holdArray', (request, response) => {
     response.send(myHoldArray)
+});
+
+app.get('/ones', (request, response) => {
+    try {
+        if (!ones && ones != 0) {
+            throw new Error('Data ikke fundet');
+        }
+        response.json(ones); 
+    } catch (error) {
+        console.error('Fejl på serveren:', error);
+        response.status(500).send('Fejl på serveren');
+    }
+});
+
+app.put('/putOnes', (request, response) => {
+    putOnes()
+    response.status(201).send(['putOnes']);
 });
 
 app.listen(8000);

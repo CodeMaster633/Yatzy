@@ -6,6 +6,7 @@ export let slagNr = 0;
 export let myHoldArray = [true, true, true, true, true];
 export let feltValgt = false;
 export let tempElement = null;
+export let ones = 9;
 
 export function kastTerning() {
     let i = 0;
@@ -70,9 +71,9 @@ export function frequency(dice) {
     return freq;
 }
 
-export function ones(dice) {
-    const freq = frequency(dice);
-    return freq[1] * 1;
+export function putOnes(dice) {
+    const freq = frequency(nuværendeSlag);
+    ones = freq[1] * 1;
 }
 
 export function twos(dice) {

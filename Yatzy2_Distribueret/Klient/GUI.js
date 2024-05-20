@@ -58,11 +58,24 @@ let bonusFelt = document.getElementById("bonus");
     return await put("http://localhost:8000/kastTerninger") 
 } 
 
+async function putOnes(){
+    return await put("http://localhost:8000/putOnes") 
+} 
+
+async function hentOnes() {
+    try {
+        return await get("http://localhost:8000/ones");
+    } catch (error) {
+        console.error("Fejl ved hentning af ones:", error);
+        return 0;
+    }
+}
+
 terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
 
 // terningSetup();
 // pointfelterSetup();
-// updateResultatfelter();
+//updateResultatfelter();
 
  button.addEventListener('click', kastTerningKnap);
 
@@ -71,11 +84,11 @@ async function kastTerningKnap() {
     kastAktuelSlag()
     terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
     // terningSetup();
-    // opdaterPointfelter();
+    await opdaterPointfelter();
     // stopVedTreSlag();
     // updateSlagString(); 
 
-    // updateResultatfelter()
+     //updateResultatfelter()
     // håndterFelt();
     // checkFærdig();
 }
@@ -131,87 +144,90 @@ function terningSetup() {
 //     button.disabled = false;
 // }
 
-// function opdaterPointfelter() {
-//     Array.from(pointfelter).forEach((element) => {
-//         switch (element.id) {
-//             case "ones":
-//                 if (element.disabled != true) {
-//                     element.value = ones(nuværendeSlag);
-//                 }
-//                 break;
-//             case "twos":
-//                 if (element.disabled != true) {
-//                     element.value = twos(nuværendeSlag);
-//                 }
-//                 break;
-//             case "threes":
-//                 if (element.disabled != true) {
-//                     element.value = threes(nuværendeSlag);
-//                 }
-//                 break;
-//             case "fours":
-//                 if (element.disabled != true) {
-//                     element.value = fours(nuværendeSlag);
-//                 }
-//                 break;
-//             case "fives":
-//                 if (element.disabled != true) {
-//                     element.value = fives(nuværendeSlag);
-//                 }
-//                 break;
-//             case "sixs":
-//                 if (element.disabled != true) {
-//                     element.value = sixs(nuværendeSlag);
-//                 }
-//                 break;
-//             case "onePair":
-//                 if (element.disabled != true) {
-//                     element.value = onePairPoints(nuværendeSlag);
-//                 }
-//                 break;
-//             case "twoPair":
-//                 if (element.disabled != true) {
-//                     element.value = twoPairPoints(nuværendeSlag);
-//                 }
-//                 break;
-//             case "threeOfAKind":
-//                 if (element.disabled != true) {
-//                     element.value = threeSamePoints(nuværendeSlag);
-//                 }
-//                 break;
-//             case "fourOfAKind":
-//                 if (element.disabled != true) {
-//                     element.value = fourSamePoints(nuværendeSlag);
-//                 }
-//                 break;
-//             case "fullHouse":
-//                 if (element.disabled != true) {
-//                     element.value = fullHousePoints(nuværendeSlag);
-//                 }
-//                 break;
-//             case "smallStraight":
-//                 if (element.disabled != true) {
-//                     element.value = smallStraightPoints(nuværendeSlag);
-//                 }
-//                 break;
-//             case "largeStraight":
-//                 if (element.disabled != true) {
-//                     element.value = largeStraightPoints(nuværendeSlag);
-//                 }
-//                 break;
-//             case "chance":
-//                 if (element.disabled != true) {
-//                     element.value = chancePoints(nuværendeSlag);
-//                 }
-//                 break;
-//             case "yatzy":
-//                 if (element.disabled != true) {
-//                     element.value = yatzyPoints(nuværendeSlag);
-//                 }
-//                 break;
-//         }
-//     });
-// }
+async function opdaterPointfelter() {
+    await putOnes();
+    let ones = await hentOnes()
+    Array.from(pointfelter).forEach((element) => {
+        switch (element.id) {
+            case "ones":
+                if (element.disabled != true) {
+                    element.value = ones;
+                    console.log(element.value)
+                }
+                break;
+            // case "twos":
+            //     if (element.disabled != true) {
+            //         element.value = twos(nuværendeSlag);
+            //     }
+            //     break;
+            // case "threes":
+            //     if (element.disabled != true) {
+            //         element.value = threes(nuværendeSlag);
+            //     }
+            //     break;
+            // case "fours":
+            //     if (element.disabled != true) {
+            //         element.value = fours(nuværendeSlag);
+            //     }
+            //     break;
+            // case "fives":
+            //     if (element.disabled != true) {
+            //         element.value = fives(nuværendeSlag);
+            //     }
+            //     break;
+            // case "sixs":
+            //     if (element.disabled != true) {
+            //         element.value = sixs(nuværendeSlag);
+            //     }
+            //     break;
+            // case "onePair":
+            //     if (element.disabled != true) {
+            //         element.value = onePairPoints(nuværendeSlag);
+            //     }
+            //     break;
+            // case "twoPair":
+            //     if (element.disabled != true) {
+            //         element.value = twoPairPoints(nuværendeSlag);
+            //     }
+            //     break;
+            // case "threeOfAKind":
+            //     if (element.disabled != true) {
+            //         element.value = threeSamePoints(nuværendeSlag);
+            //     }
+            //     break;
+            // case "fourOfAKind":
+            //     if (element.disabled != true) {
+            //         element.value = fourSamePoints(nuværendeSlag);
+            //     }
+            //     break;
+            // case "fullHouse":
+            //     if (element.disabled != true) {
+            //         element.value = fullHousePoints(nuværendeSlag);
+            //     }
+            //     break;
+            // case "smallStraight":
+            //     if (element.disabled != true) {
+            //         element.value = smallStraightPoints(nuværendeSlag);
+            //     }
+            //     break;
+            // case "largeStraight":
+            //     if (element.disabled != true) {
+            //         element.value = largeStraightPoints(nuværendeSlag);
+            //     }
+            //     break;
+            // case "chance":
+            //     if (element.disabled != true) {
+            //         element.value = chancePoints(nuværendeSlag);
+            //     }
+            //     break;
+            // case "yatzy":
+            //     if (element.disabled != true) {
+            //         element.value = yatzyPoints(nuværendeSlag);
+            //     }
+            //     break;
+        }
+    });
+}
 
 // function pointfelterSetup() {
 //     Array.from(pointfelter).forEach((element) => {
@@ -244,6 +260,7 @@ function terningSetup() {
 //         addToSum(parseInt(element.value));
 //     }
 // }
+
 // function updateResultatfelter() {
 //     totalFelt.value = getTotal();
 //     sumFelt.value = getSum();
