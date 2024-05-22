@@ -6,7 +6,10 @@ export let slagNr = 0;
 export let myHoldArray = [true, true, true, true, true];
 export let feltValgt = false;
 export let tempElement = null;
-export let ones = 9;
+export let points = [{navn:"ones", point:0, låst:false},
+{navn:"twos", point:0, låst:false},
+
+];
 
 export function kastTerning() {
     let i = 0;
@@ -71,9 +74,19 @@ export function frequency(dice) {
     return freq;
 }
 
+export function putPoints(){
+    putOnes(nuværendeSlag)
+}
+
 export function putOnes(dice) {
     const freq = frequency(nuværendeSlag);
-    ones = freq[1] * 1;
+    //console.log(points.filter(navn == "ones"))
+    let pointEntry = points.find(e => e.navn === "ones");
+    if (pointEntry) {
+        console.log("putOnes: ")
+        console.log(pointEntry)
+        pointEntry.point = freq[1] * 1;
+    }
 }
 
 export function twos(dice) {

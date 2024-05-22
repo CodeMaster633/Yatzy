@@ -58,15 +58,15 @@ let bonusFelt = document.getElementById("bonus");
     return await put("http://localhost:8000/kastTerninger") 
 } 
 
-async function putOnes(){
-    return await put("http://localhost:8000/putOnes") 
+async function putPoints(){
+    return await put("http://localhost:8000/putPoints") 
 } 
 
-async function hentOnes() {
+async function hentPoints() {
     try {
-        return await get("http://localhost:8000/ones");
+        return await get("http://localhost:8000/points");
     } catch (error) {
-        console.error("Fejl ved hentning af ones:", error);
+        console.error("Fejl ved hentning af points:", error);
         return 0;
     }
 }
@@ -145,13 +145,13 @@ function terningSetup() {
 // }
 
 async function opdaterPointfelter() {
-    await putOnes();
-    let ones = await hentOnes()
+    await putPoints();
+    let points = await hentPoints()
     Array.from(pointfelter).forEach((element) => {
         switch (element.id) {
             case "ones":
                 if (element.disabled != true) {
-                    element.value = ones;
+                    element.value = points[0].point;
                     console.log(element.value)
                 }
                 break;
