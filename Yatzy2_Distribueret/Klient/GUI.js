@@ -54,6 +54,10 @@ async function putHoldArray(terningNr){
     return await put("http://localhost:8000/putHoldArray",{terningNr})
 }
 
+async function resetHoldArray(){
+    return await put("http://localhost:8000/resetHoldArray")
+}
+
  async function hentAktuelSlag(){
     return await get("http://localhost:8000/slag")
 }
@@ -92,7 +96,7 @@ terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
 
 // terningSetup();
 pointfelterSetup();
-terningSetup2()
+//terningSetup2()
 //terningSetup();
 terningSetup()
 // pointfelterSetup();
@@ -138,35 +142,10 @@ async function terningeBillederVis(slag, holdArray) {
         i++;
 
 })
-    //         terningeBilleder[i].outerHTML = `<img
-    //   src="img/terning${element}.png"
-    //   width="100"
-    //   height="100"
-    //   class="terning"
-    //   id="img${i + 1}"
-    //   />`;
-    //     }
     ;
 }
-    let holdArray = await hentHoldArray()
 
-// function terningSetup() {
-//     Array.from(terningeBilleder).forEach((element) => {
-//         element.onclick = async function () {
-//             if (holdArray[parseInt(element.id.charAt(3)) - 1]) {
-//                 element.style = "filter: opacity(50%);";
-//                 await putHoldArray(parseInt(element.id.charAt(3)) - 1)
-//                 //holdArray[parseInt(element.id.charAt(3)) - 1] = false;
-//             } else {
-//                 element.style = "";
-//                 putHoldArray(parseInt(element.id.charAt(3)) - 1)
-//                 //holdArray[parseInt(element.id.charAt(3)) - 1] = true;
-//             }
-//         };
-//     });
-// }
-
- function terningSetup2() {
+ function terningSetup() {
 
     Array.from(terningeBilleder).forEach((element) => {
         console.log("Tilføjer klik-hændelse til:", element);
@@ -322,10 +301,18 @@ async function opdaterPointfelter() {
                  await opdaterSlagNr(0);
                  terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
                  updateResultatfelter();
+                 resetHoldArray();
+                 resetTerninger();
                  button.disabled = false;
              }
          };
      });
+ }
+
+ function resetTerninger() {
+    Array.from(terningeBilleder).forEach((element) => {
+                element.style = "";       
+    })
  }
 
  function updateResultatfelter() {

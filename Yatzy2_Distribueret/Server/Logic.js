@@ -1,3 +1,5 @@
+import e from "express";
+
 export let nuværendeSlag = [1, 3, 1, 6, 1];
 export let totalVærdi = 0;
 export let sum = 0;
@@ -92,6 +94,10 @@ export function frequency(dice) {
 
 export function putHoldArray(terningNr){
     myHoldArray[terningNr] = !myHoldArray[terningNr];
+}
+
+export function resetHoldArray(){
+    myHoldArray = [true, true, true, true, true]
 }
 
 
