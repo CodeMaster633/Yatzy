@@ -77,8 +77,7 @@ async function hentPoints() {
 
 terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
 
-terningSetup2()
-//terningSetup();
+terningSetup()
 // pointfelterSetup();
 //updateResultatfelter();
 
@@ -88,7 +87,6 @@ async function kastTerningKnap() {
     console.log("kast terning")
     kastAktuelSlag()    
     terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
-    //terningSetup2()
 
     //terningSetup();
     //await opdaterPointfelter();
@@ -122,7 +120,6 @@ async function terningeBillederVis(slag, holdArray) {
     //     }
     ;
 }
-    let holdArray = await hentHoldArray()
 
 // function terningSetup() {
 //     Array.from(terningeBilleder).forEach((element) => {
@@ -140,7 +137,7 @@ async function terningeBillederVis(slag, holdArray) {
 //     });
 // }
 
- function terningSetup2() {
+ function terningSetup() {
 
     Array.from(terningeBilleder).forEach((element) => {
         console.log("Tilføjer klik-hændelse til:", element);
@@ -160,26 +157,26 @@ async function terningeBillederVis(slag, holdArray) {
     })
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        let terningeBilleder = document.getElementsByClassName("terning");
-        console.log("terningeBilleder fundet:", terningeBilleder);
-        terningSetup2();
-    });
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     let terningeBilleder = document.getElementsByClassName("terning");
+    //     console.log("terningeBilleder fundet:", terningeBilleder);
+    //     terningSetup();
+    // });
 
-function terningSetup() {
-    Array.from(terningeBilleder).forEach((element) => {
-        element.onclick = async function () {
-            console.log("Klikket på terning")
-            const index = parseInt(element.id.charAt(3)) - 1;
-            if (hentHoldArray()[index]) {
-                element.style = "filter: opacity(50%);";
-            } else {
-                element.style = "";
-            }
-            await putHoldArray(index);
-        };
-    });
-}
+// function terningSetup() {
+//     Array.from(terningeBilleder).forEach((element) => {
+//         element.onclick = async function () {
+//             console.log("Klikket på terning")
+//             const index = parseInt(element.id.charAt(3)) - 1;
+//             if (hentHoldArray()[index]) {
+//                 element.style = "filter: opacity(50%);";
+//             } else {
+//                 element.style = "";
+//             }
+//             await putHoldArray(index);
+//         };
+//     });
+// }
 
 // function håndterFelt() {
 //     if (feltValgt) {
