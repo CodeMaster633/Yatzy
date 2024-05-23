@@ -102,21 +102,22 @@ export function resetHoldArray(){
 
 
 export function putPoints(){
-    ones(nuværendeSlag);
-    twos(nuværendeSlag);
-    threes(nuværendeSlag);
-    fours(nuværendeSlag);
-    fives(nuværendeSlag);
-    sixs(nuværendeSlag);
-    onePairPoints(nuværendeSlag);
-    twoPairPoints(nuværendeSlag);
-    threeSamePoints(nuværendeSlag);
-    fourSamePoints(nuværendeSlag);
-    fullHousePoints(nuværendeSlag);
-    smallStraightPoints(nuværendeSlag);
-    largeStraightPoints(nuværendeSlag);
-    chancePoints(nuværendeSlag);
-    yatzyPoints(nuværendeSlag);
+    if(!points.find(e => e.navn === "ones").låst){ones(nuværendeSlag);}
+    if(!points.find(e => e.navn === "twos").låst){twos(nuværendeSlag);}
+    if(!points.find(e => e.navn === "threes").låst){threes(nuværendeSlag);}
+    if(!points.find(e => e.navn === "fours").låst){fours(nuværendeSlag);}
+    if(!points.find(e => e.navn === "fives").låst){fives(nuværendeSlag);}
+    if(!points.find(e => e.navn === "sixs").låst){sixs(nuværendeSlag);}
+    if(!points.find(e => e.navn === "onePairPoints").låst){onePairPoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "twoPairPoints").låst){twoPairPoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "threeSamePoints").låst){threeSamePoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "fourSamePoints").låst){fourSamePoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "fullHousePoints").låst){fullHousePoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "smallStraightPoints").låst){smallStraightPoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "largeStraightPoints").låst){largeStraightPoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "chancePoints").låst){chancePoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "yatzyPoints").låst){yatzyPoints(nuværendeSlag);}
+
 }
 
 export function ones(dice) {
