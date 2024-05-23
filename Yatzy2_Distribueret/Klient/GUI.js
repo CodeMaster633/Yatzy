@@ -32,7 +32,6 @@
 // import { kastTerning } from "../Server/Logic.js";
 // import { nuværendeSlag } from "../Server/Logic.js";
 import{get,post,put} from "./YatzyFetch.js"
- //import {slagNr} from "../Server/Logic.js";
 
 let terningeBilleder = document.getElementsByClassName("terning");
 let button = document.getElementById("kastTerninger");
@@ -46,11 +45,16 @@ let bonusFelt = document.getElementById("bonus");
 //let myHoldArray = [true, true, true, true, true];
 //let feltValgt = false;
 //let tempElement = null; 
+ 
  async function hentHoldArray(){
     return await get("http://localhost:8000/holdArray")
 } 
 
-async function hentAktuelSlag(){
+async function putHoldArray(terningNr){
+    return await put("http://localhost:8000/putHoldArray",{terningNr})
+}
+
+ async function hentAktuelSlag(){
     return await get("http://localhost:8000/slag")
 }
 
@@ -88,6 +92,9 @@ terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
 
 // terningSetup();
 pointfelterSetup();
+terningSetup2()
+//terningSetup();
+// pointfelterSetup();
 //updateResultatfelter();
 
  button.addEventListener('click', kastTerningKnap);
@@ -113,35 +120,83 @@ async function kastTerningKnap() {
     // checkFærdig();
 }
 
-function terningeBillederVis(slag, holdArray) {
+async function terningeBillederVis(slag, holdArray) {
     console.log(slag)
     terningeBilleder.innerHTML = "";
     let i = 0;
-    holdArray = [true,true,true,true,true]
+    holdArray = await hentHoldArray();
     slag.forEach((element) => {
         if (holdArray[i]) {
-            terningeBilleder[i].outerHTML = `<img
-      src="img/terning${element}.png"
-      width="100"
-      height="100"
-      class="terning"
-      id="img${i + 1}"
-      />`;
-        }
+            terningeBilleder[i].src=`img/terning${element}.png`
+            terningeBilleder[i].id=`img${i + 1}`}
         i++;
-    });
+
+})
+    //         terningeBilleder[i].outerHTML = `<img
+    //   src="img/terning${element}.png"
+    //   width="100"
+    //   height="100"
+    //   class="terning"
+    //   id="img${i + 1}"
+    //   />`;
+    //     }
+    ;
 }
+    let holdArray = await hentHoldArray()
+
+// function terningSetup() {
+//     Array.from(terningeBilleder).forEach((element) => {
+//         element.onclick = async function () {
+//             if (holdArray[parseInt(element.id.charAt(3)) - 1]) {
+//                 element.style = "filter: opacity(50%);";
+//                 await putHoldArray(parseInt(element.id.charAt(3)) - 1)
+//                 //holdArray[parseInt(element.id.charAt(3)) - 1] = false;
+//             } else {
+//                 element.style = "";
+//                 putHoldArray(parseInt(element.id.charAt(3)) - 1)
+//                 //holdArray[parseInt(element.id.charAt(3)) - 1] = true;
+//             }
+//         };
+//     });
+// }
+
+ function terningSetup2() {
+
+    Array.from(terningeBilleder).forEach((element) => {
+        console.log("Tilføjer klik-hændelse til:", element);
+
+        element.addEventListener('click', async () =>  {
+            console.log("Klikket på terning");
+            let arr = await hentHoldArray()
+            if (arr[(parseInt(element.id.charAt(3))-1)]) {
+                element.style = "filter: opacity(50%);";
+                await putHoldArray((parseInt(element.id.charAt(3))-1))
+            } else {
+                element.style = "";
+                await putHoldArray((parseInt(element.id.charAt(3))-1))
+            }
+        });
+
+    })
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        let terningeBilleder = document.getElementsByClassName("terning");
+        console.log("terningeBilleder fundet:", terningeBilleder);
+        terningSetup2();
+    });
 
 function terningSetup() {
     Array.from(terningeBilleder).forEach((element) => {
-        element.onclick = function () {
-            if (holdArray[parseInt(element.id.charAt(3)) - 1]) {
+        element.onclick = async function () {
+            console.log("Klikket på terning")
+            const index = parseInt(element.id.charAt(3)) - 1;
+            if (hentHoldArray()[index]) {
                 element.style = "filter: opacity(50%);";
-                holdArray[parseInt(element.id.charAt(3)) - 1] = false;
             } else {
                 element.style = "";
-                holdArray[parseInt(element.id.charAt(3)) - 1] = true;
             }
+            await putHoldArray(index);
         };
     });
 }
@@ -257,11 +312,11 @@ async function opdaterPointfelter() {
              if (!element.disabled) {
                  element.disabled = true;
                  await lockPoint(element.id);
-                 updateSlagString(0); // Reset slag string to 0
-                 await opdaterSlagNr(0); // Reset slagNr on the server
-                 terningeBillederVis(await hentAktuelSlag(), await hentHoldArray()); // Reset dice display
+                 updateSlagString(0);
+                 await opdaterSlagNr(0);
+                 terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
                  updateResultatfelter();
-                 button.disabled = false; // Enable the button for rolling dice
+                 button.disabled = false;
              }
          };
      });

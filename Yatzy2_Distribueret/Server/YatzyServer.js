@@ -1,4 +1,4 @@
-import express, {response} from 'express';
+import express from 'express';
 const app = express();
 import sessions from 'express-session';
 import path from 'path';
@@ -8,12 +8,13 @@ import { nuværendeSlag, myHoldArray, kastTerning, points, putPoints, lockPoints
 let players = []
 let gameStarted = false;
 let slagNr = 0;
+import { nuværendeSlag, myHoldArray, kastTerning, points, putPoints,putHoldArray } from './Logic.js';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
+const __dirname = path.dirname(__filename);
 app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, '../Klient/views'));
+app.set("views", __dirname + "/views");
 
 app.use(sessions({ secret: 'hemmelig', saveUninitialized: true, cookie: { maxAge: 1000 * 60 * 20 }, resave: false }));
 app.use(express.static(__dirname + '/../Klient'));
@@ -56,6 +57,12 @@ app.get('/slag', (request, response) => {
 
 app.get('/holdArray', (request, response) => {
     response.send(myHoldArray)
+});
+
+app.put('/putHoldArray', (request, response) => {
+    const { terningNr } = request.body;
+    putHoldArray(terningNr)
+    response.status(201).send(['putHoldArray']);
 });
 
 app.get('/points', (request, response) => {
