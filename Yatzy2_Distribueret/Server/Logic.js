@@ -74,17 +74,19 @@ export function frequency(dice) {
     return freq;
 }
 
+export function putHoldArray(terningNr){
+    myHoldArray[terningNr] = !myHoldArray[terningNr];
+}
+
+
 export function putPoints(){
     putOnes(nuværendeSlag)
 }
 
 export function putOnes(dice) {
     const freq = frequency(nuværendeSlag);
-    //console.log(points.filter(navn == "ones"))
     let pointEntry = points.find(e => e.navn === "ones");
     if (pointEntry) {
-        console.log("putOnes: ")
-        console.log(pointEntry)
         pointEntry.point = freq[1] * 1;
     }
 }

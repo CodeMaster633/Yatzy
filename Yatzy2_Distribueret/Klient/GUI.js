@@ -50,6 +50,10 @@ let bonusFelt = document.getElementById("bonus");
     return await get("http://localhost:8000/holdArray")
 } 
 
+async function putHoldArray(terningNr){
+    return await put("http://localhost:8000/putHoldArray",{terningNr})
+} 
+
  async function hentAktuelSlag(){
     return await get("http://localhost:8000/slag")
 } 
@@ -73,7 +77,8 @@ async function hentPoints() {
 
 terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
 
-// terningSetup();
+terningSetup2()
+//terningSetup();
 // pointfelterSetup();
 //updateResultatfelter();
 
@@ -81,10 +86,12 @@ terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
 
 async function kastTerningKnap() {
     console.log("kast terning")
-    kastAktuelSlag()
+    kastAktuelSlag()    
     terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
-    // terningSetup();
-    await opdaterPointfelter();
+    //terningSetup2()
+
+    //terningSetup();
+    //await opdaterPointfelter();
     // stopVedTreSlag();
     // updateSlagString(); 
 
@@ -93,35 +100,83 @@ async function kastTerningKnap() {
     // checkFærdig();
 }
 
-function terningeBillederVis(slag, holdArray) {
+async function terningeBillederVis(slag, holdArray) {
     console.log(slag)
     terningeBilleder.innerHTML = "";
     let i = 0;
-    holdArray = [true,true,true,true,true]
+    holdArray = await hentHoldArray();
     slag.forEach((element) => {
         if (holdArray[i]) {
-            terningeBilleder[i].outerHTML = `<img
-      src="img/terning${element}.png"
-      width="100"
-      height="100"
-      class="terning"
-      id="img${i + 1}"
-      />`;
-        }
+            terningeBilleder[i].src=`img/terning${element}.png`
+            terningeBilleder[i].id=`img${i + 1}`}
         i++;
-    });
+
+})
+    //         terningeBilleder[i].outerHTML = `<img
+    //   src="img/terning${element}.png"
+    //   width="100"
+    //   height="100"
+    //   class="terning"
+    //   id="img${i + 1}"
+    //   />`;
+    //     }
+    ;
 }
+    let holdArray = await hentHoldArray()
+
+// function terningSetup() {
+//     Array.from(terningeBilleder).forEach((element) => {
+//         element.onclick = async function () {
+//             if (holdArray[parseInt(element.id.charAt(3)) - 1]) {
+//                 element.style = "filter: opacity(50%);";
+//                 await putHoldArray(parseInt(element.id.charAt(3)) - 1)
+//                 //holdArray[parseInt(element.id.charAt(3)) - 1] = false;
+//             } else {
+//                 element.style = "";
+//                 putHoldArray(parseInt(element.id.charAt(3)) - 1)
+//                 //holdArray[parseInt(element.id.charAt(3)) - 1] = true;
+//             }
+//         };
+//     });
+// }
+
+ function terningSetup2() {
+
+    Array.from(terningeBilleder).forEach((element) => {
+        console.log("Tilføjer klik-hændelse til:", element);
+
+        element.addEventListener('click', async () =>  {
+            console.log("Klikket på terning");
+            let arr = await hentHoldArray()
+            if (arr[(parseInt(element.id.charAt(3))-1)]) {
+                element.style = "filter: opacity(50%);";
+                await putHoldArray((parseInt(element.id.charAt(3))-1))
+            } else {
+                element.style = "";
+                await putHoldArray((parseInt(element.id.charAt(3))-1))
+            }
+        });
+
+    })
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        let terningeBilleder = document.getElementsByClassName("terning");
+        console.log("terningeBilleder fundet:", terningeBilleder);
+        terningSetup2();
+    });
 
 function terningSetup() {
     Array.from(terningeBilleder).forEach((element) => {
-        element.onclick = function () {
-            if (holdArray[parseInt(element.id.charAt(3)) - 1]) {
+        element.onclick = async function () {
+            console.log("Klikket på terning")
+            const index = parseInt(element.id.charAt(3)) - 1;
+            if (hentHoldArray()[index]) {
                 element.style = "filter: opacity(50%);";
-                holdArray[parseInt(element.id.charAt(3)) - 1] = false;
             } else {
                 element.style = "";
-                holdArray[parseInt(element.id.charAt(3)) - 1] = true;
             }
+            await putHoldArray(index);
         };
     });
 }
@@ -134,6 +189,7 @@ function terningSetup() {
 //     }
 //     feltValgt = false;
 // }
+
 // function stopVedTreSlag() {
 //     if (slagNr >= 3) {
 //         button.disabled = true;

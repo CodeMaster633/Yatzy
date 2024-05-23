@@ -3,7 +3,7 @@ const app = express();
 import sessions from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { nuværendeSlag, myHoldArray, kastTerning, points, putPoints } from './Logic.js';
+import { nuværendeSlag, myHoldArray, kastTerning, points, putPoints,putHoldArray } from './Logic.js';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -37,6 +37,12 @@ app.get('/slag', (request, response) => {
 
 app.get('/holdArray', (request, response) => {
     response.send(myHoldArray)
+});
+
+app.put('/putHoldArray', (request, response) => {
+    const { terningNr } = request.body;
+    putHoldArray(terningNr)
+    response.status(201).send(['putHoldArray']);
 });
 
 app.get('/points', (request, response) => {
