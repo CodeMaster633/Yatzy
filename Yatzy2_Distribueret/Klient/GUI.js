@@ -73,7 +73,7 @@ async function opdaterSlagNr(newSlagNr) {
 
 async function putPoints(){
     return await put("http://localhost:8000/putPoints") 
-}
+} 
 
 async function lockPoint(navn) {
      return await put("http://localhost:8000/lockPoint", { navn })
@@ -94,6 +94,7 @@ terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
 pointfelterSetup();
 terningSetup2()
 //terningSetup();
+terningSetup()
 // pointfelterSetup();
 //updateResultatfelter();
 
@@ -109,6 +110,11 @@ async function kastTerningKnap() {
     kastAktuelSlag()
     await opdaterSlagNr(currentSlagNr + 1)
     terningeBillederVis(await hentAktuelSlag(), await hentHoldArray());
+
+    //terningSetup();
+    //await opdaterPointfelter();
+    // stopVedTreSlag();
+    // updateSlagString(); 
     // terningSetup();
 
     updateSlagString(currentSlagNr + 1);
@@ -180,26 +186,26 @@ async function terningeBillederVis(slag, holdArray) {
     })
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        let terningeBilleder = document.getElementsByClassName("terning");
-        console.log("terningeBilleder fundet:", terningeBilleder);
-        terningSetup2();
-    });
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     let terningeBilleder = document.getElementsByClassName("terning");
+    //     console.log("terningeBilleder fundet:", terningeBilleder);
+    //     terningSetup();
+    // });
 
-function terningSetup() {
-    Array.from(terningeBilleder).forEach((element) => {
-        element.onclick = async function () {
-            console.log("Klikket på terning")
-            const index = parseInt(element.id.charAt(3)) - 1;
-            if (hentHoldArray()[index]) {
-                element.style = "filter: opacity(50%);";
-            } else {
-                element.style = "";
-            }
-            await putHoldArray(index);
-        };
-    });
-}
+// function terningSetup() {
+//     Array.from(terningeBilleder).forEach((element) => {
+//         element.onclick = async function () {
+//             console.log("Klikket på terning")
+//             const index = parseInt(element.id.charAt(3)) - 1;
+//             if (hentHoldArray()[index]) {
+//                 element.style = "filter: opacity(50%);";
+//             } else {
+//                 element.style = "";
+//             }
+//             await putHoldArray(index);
+//         };
+//     });
+// }
 
 // function håndterFelt() {
 //     if (feltValgt) {
@@ -210,11 +216,11 @@ function terningSetup() {
 //     feltValgt = false;
 // }
 
-function stopVedTreSlag(slagNr) {
-    if (slagNr >= 3) {
-        button.disabled = true;
-    }
-}
+// function stopVedTreSlag() {
+//     if (slagNr >= 3) {
+//         button.disabled = true;
+//     }
+// }
 
 // function kastTilgængeligIgen() {
 //     button.disabled = false;
