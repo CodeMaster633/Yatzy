@@ -22,7 +22,7 @@ export async function put(url, objekt) {
         body: JSON.stringify(objekt),
         headers: { 'Content-Type': 'application/json' }
     });
-    if (respons.status !== 201) // OK
+    if (respons.status !== 201 && respons.status !== 200) // OK
         throw new Error(respons.status);
     return await respons.json();
 }
