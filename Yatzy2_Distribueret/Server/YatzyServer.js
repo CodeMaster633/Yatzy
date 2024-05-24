@@ -88,6 +88,7 @@ app.put('/putPoints', (request, response) => {
 
 app.put('/lockPoint', (req, res) => {
     const { navn } = req.body;
+    console.log("Navn: "+navn)
     lockPoints(navn);
     calculateTotal();
     resetSlag();

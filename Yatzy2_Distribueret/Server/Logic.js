@@ -15,15 +15,15 @@ export let points = [
     {navn:"fours", point:0, låst:false},
     {navn:"fives", point:0, låst:false},
     {navn:"sixs", point:0, låst:false},
-    {navn:"onePairPoints", point:0, låst:false},
-    {navn:"twoPairPoints", point:0, låst:false},
-    {navn:"threeSamePoints", point:0, låst:false},
-    {navn:"fourSamePoints", point:0, låst:false},
-    {navn:"fullHousePoints", point:0, låst:false},
-    {navn:"smallStraightPoints", point:0, låst:false},
-    {navn:"largeStraightPoints", point:0, låst:false},
-    {navn:"chancePoints", point:0, låst:false},
-    {navn:"yatzyPoints", point:0, låst:false}
+    {navn:"onePair", point:0, låst:false},
+    {navn:"twoPair", point:0, låst:false},
+    {navn:"threeSame", point:0, låst:false},
+    {navn:"fourSame", point:0, låst:false},
+    {navn:"fullHouse", point:0, låst:false},
+    {navn:"smallStraight", point:0, låst:false},
+    {navn:"largeStraight", point:0, låst:false},
+    {navn:"chance", point:0, låst:false},
+    {navn:"yatzy", point:0, låst:false}
 ];
 
 export function kastTerning() {
@@ -49,7 +49,8 @@ export function vælgInputFelt(værdi) {
 
 export function addToSum(værdi) {
     sum += værdi;
-    if (sum >= 63 && bonus === 0) {
+    if (sum >= 10 && bonus == 0) {
+        console.log("bonus------")
         bonus = 50;
         totalVærdi += bonus;
     }
@@ -108,15 +109,15 @@ export function putPoints(){
     if(!points.find(e => e.navn === "fours").låst){fours(nuværendeSlag);}
     if(!points.find(e => e.navn === "fives").låst){fives(nuværendeSlag);}
     if(!points.find(e => e.navn === "sixs").låst){sixs(nuværendeSlag);}
-    if(!points.find(e => e.navn === "onePairPoints").låst){onePairPoints(nuværendeSlag);}
-    if(!points.find(e => e.navn === "twoPairPoints").låst){twoPairPoints(nuværendeSlag);}
-    if(!points.find(e => e.navn === "threeSamePoints").låst){threeSamePoints(nuværendeSlag);}
-    if(!points.find(e => e.navn === "fourSamePoints").låst){fourSamePoints(nuværendeSlag);}
-    if(!points.find(e => e.navn === "fullHousePoints").låst){fullHousePoints(nuværendeSlag);}
-    if(!points.find(e => e.navn === "smallStraightPoints").låst){smallStraightPoints(nuværendeSlag);}
-    if(!points.find(e => e.navn === "largeStraightPoints").låst){largeStraightPoints(nuværendeSlag);}
-    if(!points.find(e => e.navn === "chancePoints").låst){chancePoints(nuværendeSlag);}
-    if(!points.find(e => e.navn === "yatzyPoints").låst){yatzyPoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "onePair").låst){onePairPoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "twoPair").låst){twoPairPoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "threeSame").låst){threeSamePoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "fourSame").låst){fourSamePoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "fullHouse").låst){fullHousePoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "smallStraight").låst){smallStraightPoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "largeStraight").låst){largeStraightPoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "chance").låst){chancePoints(nuværendeSlag);}
+    if(!points.find(e => e.navn === "yatzy").låst){yatzyPoints(nuværendeSlag);}
 
 }
 
@@ -171,7 +172,7 @@ export function sixs(dice) {
 export function onePairPoints(dice) {
     const freq = frequency(dice);
     let sum = 0;
-    let pointEntry = points.find(e => e.navn === "onePairPoints")
+    let pointEntry = points.find(e => e.navn === "onePair")
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] >= 2) {
@@ -186,7 +187,7 @@ export function twoPairPoints(dice) {
     const freq = frequency(dice);
     let pairs = 0;
     let sum = 0;
-    let pointEntry = points.find(e => e.navn === "twoPairPoints");
+    let pointEntry = points.find(e => e.navn === "twoPair");
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] >= 2) {
@@ -205,7 +206,7 @@ export function twoPairPoints(dice) {
 export function threeSamePoints(dice) {
     const freq = frequency(dice);
     let sum = 0;
-    let pointEntry = points.find(e => e.navn === "threeSamePoints");
+    let pointEntry = points.find(e => e.navn === "threeSame");
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] >= 3) {
@@ -219,7 +220,7 @@ export function threeSamePoints(dice) {
 export function fourSamePoints(dice) {
     const freq = frequency(dice);
     let sum = 0;
-    let pointEntry = points.find(e => e.navn === "fourSamePoints");
+    let pointEntry = points.find(e => e.navn === "fourSame");
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] >= 4) {
@@ -235,7 +236,7 @@ export function fullHousePoints(dice) {
     let sum = 0;
     let foundThree = false;
     let foundTwo = false;
-    let pointEntry = points.find(e => e.navn === "fullHousePoints");
+    let pointEntry = points.find(e => e.navn === "fullHouse");
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] === 3) {
@@ -259,7 +260,7 @@ export function smallStraightPoints(dice) {
     const freq = frequency(dice);
     let duplicates = 0;
     let sum = 0;
-    let pointEntry = points.find(e => e.navn === "smallStraightPoints")
+    let pointEntry = points.find(e => e.navn === "smallStraight")
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] == 2) {
@@ -279,7 +280,7 @@ export function smallStraightPoints(dice) {
 //Skal ændres TODO
 export function largeStraightPoints(dice) {
     const freq = frequency(dice);
-    let pointEntry = points.find(e => e.navn === "largeStraightPoints");
+    let pointEntry = points.find(e => e.navn === "largeStraight");
     if (pointEntry) {
         if (freq[2] === 1 && freq[3] === 1 && freq[4] === 1 && freq[5] === 1 && freq[6] === 1) {
             pointEntry.point = 20;
@@ -290,7 +291,7 @@ export function largeStraightPoints(dice) {
 
 export function chancePoints(dice) {
     let sum = 0;
-    let pointEntry = points.find(e => e.navn === "chancePoints");
+    let pointEntry = points.find(e => e.navn === "chance");
     if (pointEntry) {
         for (let i = 0; i < dice.length; i++) {
             sum += dice[i];
@@ -303,7 +304,7 @@ export function yatzyPoints(dice) {
     let sum = 0;
     let first = dice[0];
     let yatzy = false;
-    let pointEntry = points.find(e => e.navn === "yatzyPoints");
+    let pointEntry = points.find(e => e.navn === "yatzy");
     if (pointEntry) {
         for (let i = 0; i < dice.length; i++) {
             if (dice[i] !== first) {
@@ -324,7 +325,8 @@ export function yatzyPoints(dice) {
 }
 
 export function lockPoints(navn) {
-    let pointEntry = points.find(e => e.navn === navn);
+    console.log("lockPoints navn: "+navn)
+    let pointEntry = points.find(e => e.navn == navn);
     if (pointEntry && !pointEntry.låst) {
         pointEntry.låst = true;
         addToSum(pointEntry.point);

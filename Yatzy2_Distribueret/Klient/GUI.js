@@ -319,18 +319,9 @@ async function opdaterPointfelter() {
      hentPoints().then(points => {
         console.log("Points: ------")
         console.log(points)
-//         let totalSum = 0;
-
-// points.forEach((point) => {
-//     if (point.låst) {
-//         totalSum += point.point;
-//     }
-// });
-
-// totalFelt.value = totalSum;
-          totalFelt.value = points.reduce((acc, curr) => acc + (curr.låst ? curr.point : 0), 0);
-         sumFelt.value = points.slice(0, 6).reduce((acc, curr) => acc + (curr.låst ? curr.point : 0), 0);
-         bonusFelt.value = (sumFelt.value >= 63) ? 50 : 0;
+        totalFelt.value = points.reduce((acc, curr) => acc + (curr.låst ? curr.point : 0), 0);
+        sumFelt.value = points.slice(0, 6).reduce((acc, curr) => acc + (curr.låst ? curr.point : 0), 0);
+        bonusFelt.value = (sumFelt.value >= 63) ? 50 : 0;
      });
  }
 
