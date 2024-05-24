@@ -1,0 +1,27 @@
+doctype html
+html
+    head
+        title Yatzy Game
+    body
+        if gameStarted
+            h1 Game in Progress
+            p The game is already in progress. Here are the current players:
+            ul
+                each player in players
+                    li= player
+        else
+            h1 Join the Yatzy Game
+            form(action="/register" method="post")
+                label(for="name") Enter your name:
+                input(type="text" name="name" required)
+                button(type="submit") Join Game
+            if players.length > 0
+                h2 Current Players
+                ul
+                    each player in players
+                        li= player
+            button(type="button" id="startGameButton") Start Game
+            script.
+                document.getElementById('startGameButton').addEventListener('click', function() {
+                    fetch('/start', { method: 'POST' }).then(() => location.reload());
+                });
