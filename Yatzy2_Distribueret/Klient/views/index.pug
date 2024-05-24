@@ -21,7 +21,10 @@ html
                     each player in players
                         li= player
             button(type="button" id="startGameButton") Start Game
-            script.
-                document.getElementById('startGameButton').addEventListener('click', function() {
-                    fetch('/start', { method: 'POST' }).then(() => location.reload());
-                });
+            #content-container
+            a(href="http://10.10.130.135:8000/indexGame")
+                button(type="button" id="loadContentButton") Load Yatzy Game
+        script.
+            document.getElementById('startGameButton').addEventListener('click', function() {
+                fetch('/start', { method: 'POST' }).then(() => location.reload());
+            });

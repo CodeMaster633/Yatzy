@@ -172,7 +172,7 @@ export function sixs(dice) {
 export function onePairPoints(dice) {
     const freq = frequency(dice);
     let sum = 0;
-    let pointEntry = points.find(e => e.navn === "onePair")
+    let pointEntry = points.find(e => e.navn === "onePairPoints")
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] >= 2) {
@@ -187,7 +187,7 @@ export function twoPairPoints(dice) {
     const freq = frequency(dice);
     let pairs = 0;
     let sum = 0;
-    let pointEntry = points.find(e => e.navn === "twoPair");
+    let pointEntry = points.find(e => e.navn === "twoPairPoints");
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] >= 2) {
@@ -206,7 +206,7 @@ export function twoPairPoints(dice) {
 export function threeSamePoints(dice) {
     const freq = frequency(dice);
     let sum = 0;
-    let pointEntry = points.find(e => e.navn === "threeSame");
+    let pointEntry = points.find(e => e.navn === "threeSamePoints");
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] >= 3) {
@@ -220,7 +220,7 @@ export function threeSamePoints(dice) {
 export function fourSamePoints(dice) {
     const freq = frequency(dice);
     let sum = 0;
-    let pointEntry = points.find(e => e.navn === "fourSame");
+    let pointEntry = points.find(e => e.navn === "fourSamePoints");
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] >= 4) {
@@ -236,7 +236,7 @@ export function fullHousePoints(dice) {
     let sum = 0;
     let foundThree = false;
     let foundTwo = false;
-    let pointEntry = points.find(e => e.navn === "fullHouse");
+    let pointEntry = points.find(e => e.navn === "fullHousePoints");
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] === 3) {
@@ -260,7 +260,7 @@ export function smallStraightPoints(dice) {
     const freq = frequency(dice);
     let duplicates = 0;
     let sum = 0;
-    let pointEntry = points.find(e => e.navn === "smallStraight")
+    let pointEntry = points.find(e => e.navn === "smallStraightPoints")
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] == 2) {
@@ -280,7 +280,7 @@ export function smallStraightPoints(dice) {
 //Skal ændres TODO
 export function largeStraightPoints(dice) {
     const freq = frequency(dice);
-    let pointEntry = points.find(e => e.navn === "largeStraight");
+    let pointEntry = points.find(e => e.navn === "largeStraightPoints");
     if (pointEntry) {
         if (freq[2] === 1 && freq[3] === 1 && freq[4] === 1 && freq[5] === 1 && freq[6] === 1) {
             pointEntry.point = 20;
@@ -291,7 +291,7 @@ export function largeStraightPoints(dice) {
 
 export function chancePoints(dice) {
     let sum = 0;
-    let pointEntry = points.find(e => e.navn === "chance");
+    let pointEntry = points.find(e => e.navn === "chancePoints");
     if (pointEntry) {
         for (let i = 0; i < dice.length; i++) {
             sum += dice[i];
@@ -304,7 +304,7 @@ export function yatzyPoints(dice) {
     let sum = 0;
     let first = dice[0];
     let yatzy = false;
-    let pointEntry = points.find(e => e.navn === "yatzy");
+    let pointEntry = points.find(e => e.navn === "yatzyPoints");
     if (pointEntry) {
         for (let i = 0; i < dice.length; i++) {
             if (dice[i] !== first) {

@@ -13,7 +13,7 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 app.set('view engine', 'pug');
-app.set("views", __dirname + "/views");
+app.set("views", __dirname + "/../Klient/views");
 
 app.use(sessions({ secret: 'hemmelig', saveUninitialized: true, cookie: { maxAge: 1000 * 60 * 20 }, resave: false }));
 app.use(express.static(__dirname + '/../Klient'));
@@ -111,6 +111,10 @@ app.put('/putSlagNr', (req, res) => {
     res.status(201).send({ slagNr });
 });
 
-app.listen(8000);
+app.get('/indexGame', (req, res) => {
+    res.sendFile(path.join(__dirname, '/../Klient/indexGame.html'));
+});
+
+app.listen(8000, '10.10.130.135');
 
 console.log('Lytter på port 8000 ...');

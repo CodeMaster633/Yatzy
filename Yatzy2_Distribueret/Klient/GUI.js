@@ -44,48 +44,50 @@ let sumFelt = document.getElementById("sum");
 let bonusFelt = document.getElementById("bonus");
 //let myHoldArray = [true, true, true, true, true];
 //let feltValgt = false;
-//let tempElement = null; 
- 
+//let tempElement = null;
+
+ let ip = "http://10.10.130.135:8000/"
+
  async function hentHoldArray(){
-    return await get("http://localhost:8000/holdArray")
+    return await get(ip + "holdArray")
 } 
 
 async function putHoldArray(terningNr){
-    return await put("http://localhost:8000/putHoldArray",{terningNr})
+    return await put(ip + "putHoldArray",{terningNr})
 }
 
 async function resetHoldArray(){
-    return await put("http://localhost:8000/resetHoldArray")
+    return await put(ip + "resetHoldArray")
 }
 
  async function hentAktuelSlag(){
-    return await get("http://localhost:8000/slag")
+    return await get(ip + "slag")
 }
 
 async function hentSlagNr() {
-     const response = await get("http://localhost:8000/getSlagNr");
+     const response = await get(ip + "getSlagNr");
      return response.slagNr;
 }
 
 async function opdaterSlagNr(newSlagNr) {
-     return await put("http://localhost:8000/putSlagNr", { slagNr: newSlagNr });
+     return await put(ip + "putSlagNr", { slagNr: newSlagNr });
  }
 
  async function kastAktuelSlag(){
-    return await put("http://localhost:8000/kastTerninger") 
+    return await put( ip + "kastTerninger")
 } 
 
 async function putPoints(){
-    return await put("http://localhost:8000/putPoints") 
+    return await put(ip + "putPoints")
 } 
 
 async function lockPoint(navn) {
-     return await put("http://localhost:8000/lockPoint", { navn })
+     return await put(ip + "lockPoint", { navn })
 }
 
 async function hentPoints() {
     try {
-        return await get("http://localhost:8000/points");
+        return await get(ip + "points");
     } catch (error) {
         console.error("Fejl ved hentning af points:", error);
         return 0;
