@@ -22,9 +22,13 @@ html
                         li= player
             button(type="button" id="startGameButton") Start Game
             #content-container
-            a(href="http://10.10.130.135:8000/indexGame")
+            a(href="http://localhost:8000/indexGame")
                 button(type="button" id="loadContentButton") Load Yatzy Game
         script.
-            document.getElementById('startGameButton').addEventListener('click', function() {
-                fetch('/start', { method: 'POST' }).then(() => location.reload());
+            document.getElementById('startGameButton').addEventListener('click', async function() {
+                await fetch('/start', { method: 'POST' });
+                const response = await fetch('/newGame', { method: 'POST' });
+                const data = await response.json();
+                localStorage.setItem('gameId', data.gameId);
+                location.reload();
             });

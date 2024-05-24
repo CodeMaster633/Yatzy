@@ -3,15 +3,14 @@ const app = express();
 import sessions from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { nuværendeSlag, myHoldArray, kastTerning, points, putPoints,putHoldArray, lockPoints, calculateTotal, resetSlag, resetHoldArray} from './Logic.js';
+import { createNewGame, getGame, kastTerning, putPoints, putHoldArray, lockPoints, calculateTotal, resetSlag, resetHoldArray, resetSpil, addToSum, vælgInputFelt, getTotal, getSum, getBonus } from './Logic.js';
 
-let players = []
+let players = [];
 let gameStarted = false;
-let slagNr = 0;
 
 const __filename = fileURLToPath(import.meta.url);
-
 const __dirname = path.dirname(__filename);
+
 app.set('view engine', 'pug');
 app.set("views", __dirname + "/../Klient/views");
 
@@ -43,78 +42,131 @@ app.post('/start', (req, res) => {
     res.sendStatus(200);
 });
 
-app.put('/kastTerninger', (request, response) => {
-    console.log("server kast virker")
-    kastTerning()
+app.post('/newGame', (req, res) => {
+    const gameId = createNewGame();
+    console.log(`Created new game with ID: ${gameId}`);
+    res.json({ gameId: gameId });
+});
+
+app.put('/kastTerninger/:gameId', (request, response) => {
+    const { gameId } = request.params;
+    console.log(`kastTerninger called with gameId: ${gameId}`);
+    if (gameId == null || !getGame(gameId)) {
+        console.log('Invalid game ID');
+        return response.status(400).send('Invalid game ID');
+    }
+    kastTerning(gameId);
     response.status(201).send(['terningekast']);
 });
 
-
-app.get('/slag', (request, response) => {
-    response.send(nuværendeSlag)
+app.get('/slag/:gameId', (request, response) => {
+    const { gameId } = request.params;
+    const game = getGame(gameId);
+    console.log(`Request for slag with gameId: ${gameId}`);
+    if (game == null) {
+        console.log('Invalid game ID');
+        return response.status(400).send('Invalid game ID');
+    }
+    response.send(game.nuværendeSlag);
 });
 
-app.get('/holdArray', (request, response) => {
-    response.send(myHoldArray)
+app.get('/holdArray/:gameId', (request, response) => {
+    const { gameId } = request.params;
+    const game = getGame(gameId);
+    if (game == null) {
+        console.log('Invalid game ID');
+        return response.status(400).send('Invalid game ID');
+    }
+    response.send(game.myHoldArray);
 });
 
-app.put('/putHoldArray', (request, response) => {
+app.put('/putHoldArray/:gameId', (request, response) => {
+    const { gameId } = request.params;
     const { terningNr } = request.body;
-    putHoldArray(terningNr)
+    console.log(`putHoldArray called with gameId: ${gameId} and terningNr: ${terningNr}`);
+    if (gameId == null || !getGame(gameId)) {
+        console.log('Invalid game ID');
+        return response.status(400).send('Invalid game ID');
+    }
+    putHoldArray(gameId, terningNr);
     response.status(201).send(['putHoldArray']);
 });
 
-app.put('/resetHoldArray', (request, response) => {
-    resetHoldArray()
-    response.status(201).send(['putHoldArray']);
+app.put('/resetHoldArray/:gameId', (request, response) => {
+    const { gameId } = request.params;
+    if (gameId == null || !getGame(gameId)) {
+        console.log('Invalid game ID');
+        return response.status(400).send('Invalid game ID');
+    }
+    resetHoldArray(gameId);
+    response.status(201).send(['resetHoldArray']);
 });
 
-app.get('/points', (request, response) => {
+app.get('/points/:gameId', (request, response) => {
+    const { gameId } = request.params;
+    const game = getGame(gameId);
+    console.log(`Request for points with gameId: ${gameId}`);
+    if (game == null) {
+        console.log('Invalid game ID');
+        return response.status(400).send('Invalid game ID');
+    }
     try {
-        if (!points && points != 0) {
+        if (!game.points && game.points != 0) {
             throw new Error('Data ikke fundet');
         }
-        response.json(points); 
+        response.json(game.points);
     } catch (error) {
         console.error('Fejl på serveren:', error);
         response.status(500).send('Fejl på serveren');
     }
 });
 
-app.put('/putPoints', (request, response) => {
-    putPoints()
+app.put('/putPoints/:gameId', (request, response) => {
+    const { gameId } = request.params;
+    if (gameId == null || !getGame(gameId)) {
+        console.log('Invalid game ID');
+        return response.status(400).send('Invalid game ID');
+    }
+    putPoints(gameId);
     response.status(201).send(['putPoints']);
 });
 
-app.put('/lockPoint', (req, res) => {
+app.put('/lockPoint/:gameId', (req, res) => {
+    const { gameId } = req.params;
     const { navn } = req.body;
-    console.log("Navn: "+navn)
-    lockPoints(navn);
-    calculateTotal();
-    resetSlag();
-    slagNr = 0;
-    res.status(200).send(points);
-})
-
-app.get('/getSlagNr', (req, res) => {
-    res.json({ slagNr });
+    if (gameId == null || !getGame(gameId)) {
+        return res.status(400).send('Invalid game ID');
+    }
+    lockPoints(navn, gameId);
+    calculateTotal(gameId);
+    resetSlag(gameId);
+    res.status(200).send(getGame(gameId).points);
 });
 
-app.put('/putSlagNr', (req, res) => {
-    const { slagNr: newSlagNr } = req.body;
-    console.log(`Received newSlagNr: ${newSlagNr}`);
-    if (typeof newSlagNr !== 'number') {
-        return res.status(400).send('Invalid slagNr');
+app.get('/getSlagNr/:gameId', (req, res) => {
+    const { gameId } = req.params;
+    const game = getGame(gameId);
+    if (game == null) {
+        return res.status(400).send('Invalid game ID');
     }
-    slagNr = newSlagNr;
-    console.log(`Updated slagNr to: ${slagNr}`);
-    res.status(201).send({ slagNr });
+    res.json({ slagNr: game.slagNr });
+});
+
+app.put('/putSlagNr/:gameId', (req, res) => {
+    const { gameId } = req.params;
+    const { slagNr: newSlagNr } = req.body;
+    console.log(`Received newSlagNr: ${newSlagNr} for gameId: ${gameId}`);
+    if (gameId == null || !getGame(gameId) || typeof newSlagNr !== 'number') {
+        return res.status(400).send('Invalid game ID or slagNr');
+    }
+    getGame(gameId).slagNr = newSlagNr;
+    res.status(201).send({ slagNr: newSlagNr });
 });
 
 app.get('/indexGame', (req, res) => {
     res.sendFile(path.join(__dirname, '/../Klient/indexGame.html'));
 });
 
-app.listen(8000, '10.10.130.135');
-
-console.log('Lytter på port 8000 ...');
+app.listen(8000, 'localhost', () => {
+    console.log('Lytter på port 8000 ...');
+});
