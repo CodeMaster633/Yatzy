@@ -3,12 +3,11 @@ const app = express();
 import sessions from 'express-session';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { nuværendeSlag, myHoldArray, kastTerning, points, putPoints, lockPoints, calculateTotal, resetSlag} from './Logic.js';
+import { nuværendeSlag, myHoldArray, kastTerning, points, putPoints,putHoldArray, lockPoints, calculateTotal, resetSlag, resetHoldArray} from './Logic.js';
 
 let players = []
 let gameStarted = false;
 let slagNr = 0;
-import { nuværendeSlag, myHoldArray, kastTerning, points, putPoints,putHoldArray } from './Logic.js';
 
 const __filename = fileURLToPath(import.meta.url);
 
@@ -62,6 +61,11 @@ app.get('/holdArray', (request, response) => {
 app.put('/putHoldArray', (request, response) => {
     const { terningNr } = request.body;
     putHoldArray(terningNr)
+    response.status(201).send(['putHoldArray']);
+});
+
+app.put('/resetHoldArray', (request, response) => {
+    resetHoldArray()
     response.status(201).send(['putHoldArray']);
 });
 
