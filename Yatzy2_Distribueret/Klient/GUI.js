@@ -209,11 +209,9 @@ function resetTerninger() {
 
 function updateResultatfelter() {
     hentPoints().then(points => {
-        console.log("Points: ------");
-        console.log(points);
-        totalFelt.value = points.reduce((acc, curr) => acc + (curr.låst ? curr.point : 0), 0);
         sumFelt.value = points.slice(0, 6).reduce((acc, curr) => acc + (curr.låst ? curr.point : 0), 0);
         bonusFelt.value = (sumFelt.value >= 63) ? 50 : 0;
+        totalFelt.value = points.reduce((acc, curr) => acc + (curr.låst ? curr.point : 0), 0) + parseInt(bonusFelt.value);
     });
 }
 

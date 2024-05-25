@@ -1,8 +1,3 @@
-import e from "express";
-import {get} from "../Klient/YatzyFetch.js";
-
-
-
 export let games = [];
 
 export function createNewGame() {
@@ -22,15 +17,15 @@ export function createNewGame() {
             { navn: "fours", point: 0, låst: false },
             { navn: "fives", point: 0, låst: false },
             { navn: "sixs", point: 0, låst: false },
-            { navn: "onePairPoints", point: 0, låst: false },
-            { navn: "twoPairPoints", point: 0, låst: false },
-            { navn: "threeSamePoints", point: 0, låst: false },
-            { navn: "fourSamePoints", point: 0, låst: false },
-            { navn: "fullHousePoints", point: 0, låst: false },
-            { navn: "smallStraightPoints", point: 0, låst: false },
-            { navn: "largeStraightPoints", point: 0, låst: false },
-            { navn: "chancePoints", point: 0, låst: false },
-            { navn: "yatzyPoints", point: 0, låst: false }
+            { navn: "onePair", point: 0, låst: false },
+            { navn: "twoPair", point: 0, låst: false },
+            { navn: "threeSame", point: 0, låst: false },
+            { navn: "fourSame", point: 0, låst: false },
+            { navn: "fullHouse", point: 0, låst: false },
+            { navn: "smallStraight", point: 0, låst: false },
+            { navn: "largeStraight", point: 0, låst: false },
+            { navn: "chance", point: 0, låst: false },
+            { navn: "yatzy", point: 0, låst: false }
         ]
     };
     games.push(newGame);
@@ -71,6 +66,7 @@ export function addToSum(gameId, værdi) {
     let game = getGame(gameId);
     game.sum += værdi;
     if (game.sum >= 63 && game.bonus === 0) {
+        console.log("bonus opnået")
         game.bonus = 50;
         game.totalVærdi += game.bonus;
     }
@@ -134,15 +130,15 @@ export function putPoints(gameId) {
     if (!game.points.find(e => e.navn === "fours").låst) { fours(gameId); }
     if (!game.points.find(e => e.navn === "fives").låst) { fives(gameId); }
     if (!game.points.find(e => e.navn === "sixs").låst) { sixs(gameId); }
-    if (!game.points.find(e => e.navn === "onePairPoints").låst) { onePairPoints(gameId); }
-    if (!game.points.find(e => e.navn === "twoPairPoints").låst) { twoPairPoints(gameId); }
-    if (!game.points.find(e => e.navn === "threeSamePoints").låst) { threeSamePoints(gameId); }
-    if (!game.points.find(e => e.navn === "fourSamePoints").låst) { fourSamePoints(gameId); }
-    if (!game.points.find(e => e.navn === "fullHousePoints").låst) { fullHousePoints(gameId); }
-    if (!game.points.find(e => e.navn === "smallStraightPoints").låst) { smallStraightPoints(gameId); }
-    if (!game.points.find(e => e.navn === "largeStraightPoints").låst) { largeStraightPoints(gameId); }
-    if (!game.points.find(e => e.navn === "chancePoints").låst) { chancePoints(gameId); }
-    if (!game.points.find(e => e.navn === "yatzyPoints").låst) { yatzyPoints(gameId); }
+    if (!game.points.find(e => e.navn === "onePair").låst) { onePairPoints(gameId); }
+    if (!game.points.find(e => e.navn === "twoPair").låst) { twoPairPoints(gameId); }
+    if (!game.points.find(e => e.navn === "threeSame").låst) { threeSamePoints(gameId); }
+    if (!game.points.find(e => e.navn === "fourSame").låst) { fourSamePoints(gameId); }
+    if (!game.points.find(e => e.navn === "fullHouse").låst) { fullHousePoints(gameId); }
+    if (!game.points.find(e => e.navn === "smallStraight").låst) { smallStraightPoints(gameId); }
+    if (!game.points.find(e => e.navn === "largeStraight").låst) { largeStraightPoints(gameId); }
+    if (!game.points.find(e => e.navn === "chance").låst) { chancePoints(gameId); }
+    if (!game.points.find(e => e.navn === "yatzy").låst) { yatzyPoints(gameId); }
 }
 
 export function ones(gameId) {
@@ -203,7 +199,7 @@ export function onePairPoints(gameId) {
     let game = getGame(gameId);
     const freq = frequency(game.nuværendeSlag);
     let sum = 0;
-    let pointEntry = game.points.find(e => e.navn === "onePairPoints")
+    let pointEntry = game.points.find(e => e.navn === "onePair")
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] >= 2) {
@@ -219,7 +215,7 @@ export function twoPairPoints(gameId) {
     const freq = frequency(game.nuværendeSlag);
     let pairs = 0;
     let sum = 0;
-    let pointEntry = game.points.find(e => e.navn === "twoPairPoints");
+    let pointEntry = game.points.find(e => e.navn === "twoPair");
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] >= 2) {
@@ -239,7 +235,7 @@ export function threeSamePoints(gameId) {
     let game = getGame(gameId)
     const freq = frequency(game.nuværendeSlag);
     let sum = 0;
-    let pointEntry = game.points.find(e => e.navn === "threeSamePoints");
+    let pointEntry = game.points.find(e => e.navn === "threeSame");
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] >= 3) {
@@ -254,7 +250,7 @@ export function fourSamePoints(gameId) {
     let game = getGame(gameId)
     const freq = frequency(game.nuværendeSlag);
     let sum = 0;
-    let pointEntry = game.points.find(e => e.navn === "fourSamePoints");
+    let pointEntry = game.points.find(e => e.navn === "fourSame");
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] >= 4) {
@@ -271,7 +267,7 @@ export function fullHousePoints(gameId) {
     let sum = 0;
     let foundThree = false;
     let foundTwo = false;
-    let pointEntry = game.points.find(e => e.navn === "fullHousePoints");
+    let pointEntry = game.points.find(e => e.navn === "fullHouse");
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] === 3) {
@@ -296,7 +292,7 @@ export function smallStraightPoints(gameId) {
     const freq = frequency(game.nuværendeSlag);
     let duplicates = 0;
     let sum = 0;
-    let pointEntry = game.points.find(e => e.navn === "smallStraightPoints")
+    let pointEntry = game.points.find(e => e.navn === "smallStraight")
     if (pointEntry) {
         for (let i = 0; i < freq.length; i++) {
             if (freq[i] === 2) {
@@ -316,7 +312,7 @@ export function smallStraightPoints(gameId) {
 export function largeStraightPoints(gameId) {
     let game = getGame(gameId)
     const freq = frequency(game.nuværendeSlag);
-    let pointEntry = game.points.find(e => e.navn === "largeStraightPoints");
+    let pointEntry = game.points.find(e => e.navn === "largeStraight");
     if (pointEntry) {
         if (freq[2] === 1 && freq[3] === 1 && freq[4] === 1 && freq[5] === 1 && freq[6] === 1) {
             pointEntry.point = 20;
@@ -328,7 +324,7 @@ export function largeStraightPoints(gameId) {
 export function chancePoints(gameId) {
     let game = getGame(gameId)
     let sum = 0;
-    let pointEntry = game.points.find(e => e.navn === "chancePoints");
+    let pointEntry = game.points.find(e => e.navn === "chance");
     if (pointEntry) {
         for (let i = 0; i < game.nuværendeSlag.length; i++) {
             sum += game.nuværendeSlag[i];
@@ -342,7 +338,7 @@ export function yatzyPoints(gameId) {
     let sum = 0;
     let first = game.nuværendeSlag[0];
     let yatzy = false;
-    let pointEntry = game.points.find(e => e.navn === "yatzyPoints");
+    let pointEntry = game.points.find(e => e.navn === "yatzy");
     if (pointEntry) {
         for (let i = 0; i < game.nuværendeSlag.length; i++) {
             if (game.nuværendeSlag[i] !== first) {
